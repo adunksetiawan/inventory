@@ -12,7 +12,7 @@ require_once "library/fungsi_standar.php";
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-	<title>Cloud Admin | Dashboard</title>
+	<title>Schoko Inventory | Dashboard</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -129,7 +129,7 @@ require_once "library/fungsi_standar.php";
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<img alt="" src="img/avatars/avatar3.jpg" />
+							<img alt="" src="img/avatars/ava1.png" />
 							<span class="username">John Doe</span>
 							<i class="fa fa-angle-down"></i>
 						</a>
