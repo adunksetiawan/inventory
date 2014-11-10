@@ -345,7 +345,7 @@
                                     else {
                                         // the field is valid, but we are displaying a green prompt
                                         if (options.allrules[msg]) {
-                                            var txt = options.allrules[msg].alertTextOk;
+                                            var txtproses_akses.php = options.allrules[msg].alertTextOk;
                                             if (txt)
                                                 msg = txt;
                                         }

@@ -11,7 +11,7 @@ $cari			= $_REQUEST['tcari'];
 
 $qtmpil_barang="select * from barang where true";
 if($cari!="") {
-	$qtmpil_barang=" and barang_nama like '%$cari%' or barang_kategori like '%$cari%'";
+	$qtmpil_barang.=" and barang_nama like '$cari%'";
 }
 $qtmpil_barang.=" order by inc asc";	
 $sqlnav=$qtmpil_barang;

@@ -77,7 +77,7 @@ $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
   <tr>
     <th id="namaField">Nama</th>
     <th id="namaField">level</th>
-    <th colspan="2" align="center">Aksi</th>
+    <th colspan="3" align="center"><center>Aksi</center></th>
   </tr>
   </thead>
   <tbody>
@@ -97,14 +97,16 @@ $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 	?>
 	<a href="<?php echo "proses.php?proses=hapus_akun&id=$dakun[username]"; ?>" 
 		onclick="return confirm('Apakah Anda akan menghapus data akun ini ?')">hapus</a>
+       
 	<?php 
 	echo "
     </td>
+    <td><a href='?halaman=hak_akses&id=$dakun[username]'>Pengaturan akses</a> </td>
   </tr>";
   }
   ?>
   <tr>
-                                              <td colspan="4" align="center"><?php _navpage($koneksi,$sqlnav,$maxrow,$page,"?halaman=data_akun&maxrow=$maxrow&status_absen=$status_absen&$start=$start&end=$end&show=data_akun.php");?>
+                                              <td colspan="5" align="center"><?php _navpage($koneksi,$sqlnav,$maxrow,$page,"?halaman=data_akun&maxrow=$maxrow&status_absen=$status_absen&$start=$start&end=$end&show=data_akun.php");?>
                                               </td>
                                               </tr>
   </tbody>

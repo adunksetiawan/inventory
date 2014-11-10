@@ -53,7 +53,7 @@ td
     <td>Password</td>
     <td>:</td>
     <td><label>
-      <input type="text" name="password" id="input" class="form-control" placeholder="Password" />
+      <input type="password" name="password" id="input" class="form-control" placeholder="Password" />
     </label></td>
   </tr>
   <tr>
