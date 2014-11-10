@@ -164,13 +164,20 @@ require_once "library/fungsi_standar.php";
 						
 						<!-- SIDEBAR MENU -->
 						<ul>
+                        <?php 
+                        $mn="select * from account_menu as a, menus as b where a.id_menu=b.id_menu and a.id_menu_tree=b.id_menu_tree and 
+                        a.username='".$_SESSION['username']."' order by b.id_menu asc";
+                        $rsm=mysql_query($mn);
+                        
+                        while($menus=mysql_fetch_array($rsm)) {
+                        ?>
 							<li>
-								<a href="index.php">
-								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">Beranda</span>
+								<a href="<?=$menus['url']?>">
+								<i class="<?=$menus['custom_class']?>"></i> <span class="menu-text"><?=$menus['nm_menu']?></span>
 								<span class="selected"></span>
 								</a>					
 							</li>
-                            <li>
+                            <!--<li>
                             	<a href="index.php?halaman=data_barang">
                             	<i class="fa fa-briefcase fa-fw"></i> <span class="menu-text">Barang</span>
                             	<span class="selected"></span>
@@ -211,7 +218,8 @@ require_once "library/fungsi_standar.php";
                             	<i class="fa fa-user fa-fw"></i> <span class="menu-text">Data Akun</span>
                             	<span class="selected"></span>
                             	</a>
-                            </li>
+                            </li>-->
+                            <?php } ?>
 						</ul>
 						<!-- /SIDEBAR MENU -->
 					</div>
