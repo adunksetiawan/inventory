@@ -177,48 +177,6 @@ require_once "library/fungsi_standar.php";
 								<span class="selected"></span>
 								</a>					
 							</li>
-                            <!--<li>
-                            	<a href="index.php?halaman=data_barang">
-                            	<i class="fa fa-briefcase fa-fw"></i> <span class="menu-text">Barang</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=data_supplier">
-                            	<i class="fa fa-user fa-fw"></i> <span class="menu-text">Supplier</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=data_pelanggan">
-                            	<i class="fa fa-users fa-fw"></i> <span class="menu-text">Pelanggan</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=barang_masuk">
-                            	<i class="fa fa-arrow-left fa-fw"></i> <span class="menu-text">Barang Masuk</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=penjualan">
-                            	<i class="fa fa-shopping-cart fa-fw"></i> <span class="menu-text">Penjualan</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=stok">
-                            	<i class="fa fa-archive fa-fw"></i> <span class="menu-text">Stock</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>
-                            <li>
-                            	<a href="index.php?halaman=data_akun">
-                            	<i class="fa fa-user fa-fw"></i> <span class="menu-text">Data Akun</span>
-                            	<span class="selected"></span>
-                            	</a>
-                            </li>-->
                             <?php } ?>
 						</ul>
 						<!-- /SIDEBAR MENU -->
