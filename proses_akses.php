@@ -25,10 +25,12 @@ if($act=="add") {
      
      if($dtmn>=1) {
         echo "Sudah ada data yang sama";
+        //lompat_ke("index.php?halaman=hak_akses&id='$uid'");
      } else {
         $sql="insert into account_menu (id_menu, id_menu_tree, username) values ('$pecah[0]', '$pecah[1]', '$uid')";
         $rs=mysql_query($sql);
         echo "Menu ditambahkan";
+        //lompat_ke("index.php?halaman=hak_akses&id='$uid'");
      }
     
 } else if($act=="del") {
@@ -37,6 +39,8 @@ if($act=="add") {
     
     $sql="delete from account_menu where username='$uid' and id_menu='$pecah[0]' and id_menu_tree='$pecah[1]'";
     $rs=mysql_query($sql);
+    
+    lompat_ke("index.php?halaman=hak_akses&id=$uid");
     
 }
 
