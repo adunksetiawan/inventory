@@ -97,17 +97,16 @@ $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <td>$dakun[nm_menu]</td>
     <td>$dakun[url]</td>
     <td>$dakun[custom_class]</td>
-    <td><a href=index.php?halaman=form_ubah_akun&id=$dakun[username]>";?>ubah<?php echo "</a>
+    <td><a href=index.php?halaman=form_ubah_menu&id=$dakun[id]>";?>ubah<?php echo "</a>
 	</td>
 	<td>";
 	?>
-	<a href="<?php echo "proses.php?proses=hapus_akun&id=$dakun[username]"; ?>" 
+	<a href="<?php echo "proses.php?proses=hapus_menu&id=$dakun[id]"; ?>" 
 		onclick="return confirm('Apakah Anda akan menghapus data akun ini ?')">hapus</a>
        
 	<?php 
 	echo "
     </td>
-    <td><a href='?halaman=hak_akses&id=$dakun[username]'>Pengaturan akses</a> </td>
   </tr>";
   }
   ?>

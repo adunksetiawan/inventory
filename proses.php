@@ -25,6 +25,20 @@ $url="";
 //pilih fungsi
 	switch($proses){
 		//pemilihan fungsi insert
+        case "menu_insert":
+		{
+			$nama_tabel="menus";
+			$id_menu=$_POST["id_menu"];
+			$id_menu_tree=$_POST["id_menu_tree"];
+            $nm_menu=$_POST['nm_menu'];
+            $url=$_POST['url'];
+            $custom_class=$_POST['custom_class'];
+			
+            $values="'$id_menu', '$id_menu_tree', '$nm_menu', '$url', NULL, '$custom_class'";
+			$hal="data_menu";
+			insert($nama_tabel,$values);
+			break;
+		}
 		case "akun_insert":
 		{
 			$nama_tabel="account";
@@ -284,6 +298,13 @@ $url="";
 			$hal="data_akun";
 			break;
 		}
+        case "ubah_menu":
+		{
+			$sql="UPDATE menus SET nm_menu='$_POST[nm_menu]', url='$_POST[url]', custom_class='$_POST[custom_class]' WHERE id='$_POST[id]'";
+			mysql_query($sql);
+			$hal="data_menu";
+			break;
+		}
 	}//end switch
 	
 switch($hapus){
@@ -360,6 +381,13 @@ switch($hapus){
 		$sql="DELETE FROM account WHERE username='$_GET[id]'";
 		mysql_query($sql);
 		$hal="data_akun";
+		break;
+	}
+    case "hapus_menu":
+	{
+		$sql="DELETE FROM menus WHERE id='$_GET[id]'";
+		mysql_query($sql);
+		$hal="data_menu";
 		break;
 	}
 }
