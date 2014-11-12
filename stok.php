@@ -13,6 +13,29 @@ $cari			= $_REQUEST['tcari'];
 $sql="SELECT * FROM stok where true";	
 $sumQty="SELECT SUM(qty) AS totalQty FROM stok where true";
 
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if($_REQUEST['act']!="") {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            //echo $gethal;
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu, id_menu_tree from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            
+                            cek_hak_akses($dtck['id_menu'], $dtck['id_menu_tree'], $_SESSION['username']);
+                            }
+
 if($cari!="") {
 	$sql.=" and barang_nama LIKE '%$cari%'";
 	$sumQty.=" and barang_nama LIKE '%$cari%'";
@@ -77,7 +100,9 @@ $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <th id="namaField">Qty</th>
     <th id="namaField">Packing</th>
     <th id="namaField">Harga Barang</th>
+    <?php if($_REQUEST['act']!="") { ?>
     <th id="namaField" colspan="2">Menu</th>
+    <?php } ?>
   </tr>
   </thead>
   <tbody>
@@ -100,23 +125,32 @@ $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <td>$data[kategori]</td>
     <td>$data[qty]</td>
 	<td>$data[packing]</td>
-	<td>$data[harga_barang]</td>
-	<td>";
-	if ($_SESSION['level'] == "admin")
-	{ ?>
-		<a href="<?php echo "index.php?halaman=form_ubah_stok&id=$data[barang_id]";?>"><div id="tombol">ubah</div></a>
+	<td>$data[harga_barang]</td>"; ?>
+	<?php if($_REQUEST['act']!="") { ?>
+    <?php if($_REQUEST['act']=="ubah") {?>
+    <td colspan="2">
+		<a class="btn btn-warning" href="<?php echo "index.php?halaman=form_ubah_stok&id=$data[barang_id]";?>"><div id="tombol"><i class="fa fa-edit"></i>&nbsp;ubah</div></a>
 	</td>
-    <td>
-		<a href="<?php echo "proses.php?proses=hapus_stok&id=$data[barang_id]"; ?>" 
-		onclick="return confirm('Apakah Anda akan menghapus data stok ini ?')"><div id="tombol">hapus</div></a>
+    <?php } else if($_REQUEST['act']=="hapus") { ?>
+    <td colspan="2">
+		<a class="btn btn-danger" href="<?php echo "proses.php?proses=hapus_stok&id=$data[barang_id]"; ?>" 
+		onclick="return confirm('Apakah Anda akan menghapus data stok ini ?')"><div id="tombol"><i class="fa fa-trash-o"></i>&nbsp;hapus</div></a>
 	</td>
 	<?php
+    }
     }
     echo "</tr>";
 	$no++;
 	} ?>
    <tr>
-  	<td style="background-color:#333;color:#FFF;border:none" colspan="8" align="right">total :</td>
+   <?php 
+   if($_REQUEST['act']!="") {
+        $rowspan='colspan="8"';
+   } else {
+        $rowspan='colspan="6"';
+   }
+   ?>
+  	<td style="background-color:#333;color:#FFF;border:none" <?=$rowspan?> align="right">total :</td>
     <td id="namaField" style="background-color:#999;color:#FFF;border:none">
     	<?php
 			$qsumQty=mysql_query($sumQty);

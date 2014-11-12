@@ -33,7 +33,7 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 													<input name="tcari" type="text" class="form-control" id="exampleInputEmail2" placeholder="Cari..">
 												  </div>
 												  <button name="bcari" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
-                                                  <a href="index.php?halaman=form_data_master&kode=supplier_insert" class="btn btn-danger">Input data supplier</a>
+                                                  <!--<a href="index.php?halaman=form_data_master&kode=supplier_insert" class="btn btn-danger">Input data supplier</a>-->
 												</form>
 											</div>
 										</div>
@@ -71,9 +71,11 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 												<th>Nama</th>
 												<th>Alamat</th>
 												<th>Email</th>
-												<th>Kontak</th>                                        
+												<th>Kontak</th>
+                                                <?php if($_REQUEST['act']!="") { ?>                                        
                                                 <th colspan="2" align="center"><center>Aksi</center></th>
-											  </tr>
+											    <?php } ?> 
+                                              </tr>
 											</thead>
 											<tbody>
                                             <?php 
@@ -96,14 +98,18 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <td><?php echo "$row2[supplier_alamat]"; ?></td>
           <td><?php echo "$row2[supplier_email]"; ?></td>
           <td><?php echo "$row2[supplier_kontak]"; ?></td>
-          <td><?php echo "<a href=index.php?halaman=form_ubah_data&kode=supplier_update&id=$row2[supplier_id]>"; ?>
-          		<div id="tombol">ubah</div>
+          <?php if($_REQUEST['act']!="") { ?>
+          <?php if($_REQUEST['act']=="ubah") { ?>
+          <td align="center"><?php echo "<a class='btn btn-warning' href=index.php?halaman=form_ubah_data&kode=supplier_update&id=$row2[supplier_id]>"; ?>
+          		<div id="tombol"><i class="fa fa-edit"></i>&nbsp;ubah</div>
 			  <?php echo "</a>"; ?>
           </td>
-          <td><?php echo "<a href=proses.php?proses=supplier_delete&id=$row2[supplier_id]>"; ?>
-          		<div id="tombol" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')">hapus</div>
+          <?php } else if($_REQUEST['act']=="hapus") { ?>
+          <td align="center"><?php echo "<a class='btn btn-danger' href=proses.php?proses=supplier_delete&id=$row2[supplier_id]>"; ?>
+          		<div id="tombol" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')"><i class="fa fa-trash-o"></i>&nbsp;hapus</div>
 			  <?php echo "</a>"; ?>
           </td>
+          <?php } } ?>
 											  </tr>
                                               <?php	$no++; } ?>
                                               <tr>

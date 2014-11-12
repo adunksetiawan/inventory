@@ -13,6 +13,29 @@ $pesan.=" order by inc asc";
 $sqlnav=$pesan;
 $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if($_REQUEST['act']!="") {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            //echo $gethal;
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu, id_menu_tree from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            
+                            cek_hak_akses($dtck['id_menu'], $dtck['id_menu_tree'], $_SESSION['username']);
+                            }
+
 	$warna1="#FEEBFD";
 	$warna2="#FFFFFF";
 	$warna=$warna1;
@@ -35,7 +58,7 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_akhir" type="text" class="form-control" id="datepicker1" placeholder="Tanggal akhir">
-                    </div><button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button> <a href="?halaman=form_jual" class="btn btn-danger">Tambah data</a>
+                    </div>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
                 </form>
             </div>
         </div><!-- /BASIC -->
@@ -48,7 +71,7 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
         <div class="box border red">
             <div class="box-title">
-                <h4>Barang masuk</h4>
+                <h4>Barang keluar</h4>
 
                 <div class="tools">
                     <a href="#box-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="remove"></a>

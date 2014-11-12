@@ -13,7 +13,7 @@ $akun="SELECT * FROM menus where true";
 if($cari!="") {
 	$akun.=" and nm_menu like '$cari%'";	
 }
-$akun.=" order by id asc";	
+$akun.=" order by id_menu asc, id_menu_tree asc";	
 $sqlnav=$akun;
 $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
@@ -128,6 +128,7 @@ $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 	}
 	else
 	{
-		echo "anda tidak berhak meng-akses halaman ini !";
+		echo '<script type="text/javascript">alert("Anda tidak diizinkan mengakses halaman ini.");</script>';
+        lompat_ke("index.php");
 	}
 ?>

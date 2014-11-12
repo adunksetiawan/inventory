@@ -17,6 +17,27 @@ $qtmpil_barang.=" order by inc asc";
 $sqlnav=$qtmpil_barang;
 $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if($_REQUEST['act']!="") {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu, id_menu_tree from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            
+                            cek_hak_akses($dtck['id_menu'], $dtck['id_menu_tree'], $_SESSION['username']);
+                            }
+
 ?>
 <div class="row">
 <div class="col-lg-12">
@@ -32,7 +53,7 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 													<input name="tcari" type="text" class="form-control" id="exampleInputEmail2" placeholder="Cari..">
 												  </div>
 												  <button name="bcari" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
-                                                  <a href="index.php?halaman=form_data_master&kode=barang_insert" class="btn btn-danger">Input data barang</a>
+                                                  
 												</form>
 											</div>
 										</div>
@@ -70,8 +91,10 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 												<th>Kategori</th>
                                                 <th>Packing</th>
                                                 <th>Harga satuan</th>                                          
+                                                <?php if($_REQUEST['act']!="") {?>
                                                 <th colspan="2" align="center"><center>Aksi</center></th>
-											  </tr>
+											     <?php } ?>
+                                              </tr>
 											</thead>
 											<tbody>
                                             <?php 
@@ -93,14 +116,23 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <td><?php echo "$row1[barang_kategori]"; ?></td>
           <td><?php echo "$row1[satuan]x$row1[kg]Kg";?></td>
           <td><?php echo "$row1[harga_satuan]"; ?></td>
-          <td><?php echo "<a href=index.php?halaman=form_ubah_data&kode=barang_update&id=$row1[inc]>"; ?>ubah<?php echo "</a>"; ?></td>
-          <td><a href="<?php echo "proses.php?proses=barang_delete&id=$row1[inc]>"; ?>" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')">hapus</a>
+          <?php if($_REQUEST['act']!="") { ?>
+          <td align="center"><?php 
+          if($_REQUEST['act']=="ubah") {
+            echo "<a class='btn btn-warning' href=index.php?halaman=form_ubah_data&kode=barang_update&id=$row1[inc]>"; ?><i class="fa fa-edit"></i>&nbsp;ubah<?php echo "</a>"; 
+          } ?></td>
+          <td align="center">
+          <?php if($_REQUEST['act']=="hapus") { ?>
+          <a class="btn btn-danger" href="<?php echo "proses.php?proses=barang_delete&id=$row1[inc]>"; ?>" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')"><i class="fa fa-trash-o"></i>&nbsp;hapus</a>
+          <?php } ?>
           </td>
+          <?php } ?>
 											  </tr>
                                               <?php	$no++; } ?>
                                               <tr>
                                               <td colspan="8" align="center"><?php _navpage($koneksi,$sqlnav,$maxrow,$page,"?halaman=data_barang&maxrow=$maxrow&status_absen=$status_absen&$start=$start&end=$end&show=data_barang.php");?>
                                               </td>
+                                              
                                               </tr>
 											</tbody>
 										  </table>

@@ -42,6 +42,28 @@ body {
 require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
 
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if($_REQUEST['act']!="") {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu, id_menu_tree from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            
+                            cek_hak_akses($dtck['id_menu'], $dtck['id_menu_tree'], $_SESSION['username']);
+                            }
+
 	echo "
 	<form id=formID name=formInput method=post action=proses.php>
 	  <input type=hidden name=proses id=proses value=$_GET[kode] />";

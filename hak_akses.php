@@ -120,7 +120,7 @@ $(document).ready(function() {
                                              $no=1;
                                              while($dtmenu=mysql_fetch_array($menu)) {
                                                 
-                                             $qry="select * from account_menu where username='".$_REQUEST['id']."' and id_menu='".$dtmenu['id_menu']."' and id_menu_tree='".$dtmenu['id_menu_tree']."'";   
+                                             $qry="select * from account_menu where username='".$_REQUEST['id']."' and id_menu='".$dtmenu['id_menu']."' and id_menu_tree='".$dtmenu['id_menu_tree']."' order by id_menu asc, id_menu_tree asc";   
                                              $ckmn=mysql_query($qry);
                                              $dtmn=mysql_num_rows($ckmn);   
                                              

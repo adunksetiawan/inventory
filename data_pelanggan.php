@@ -17,6 +17,29 @@ $qtmpil_pel.=" order by inc asc";
 $sqlnav=$qtmpil_pel;
 $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if($_REQUEST['act']!="") {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            //echo $gethal;
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu, id_menu_tree from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            
+                            cek_hak_akses($dtck['id_menu'], $dtck['id_menu_tree'], $_SESSION['username']);
+                            }
+
 ?>
 
 <div class="row">
@@ -33,7 +56,7 @@ $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 													<input name="tcari" type="text" class="form-control" id="exampleInputEmail2" placeholder="Cari..">
 												  </div>
 												  <button name="bcari" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
-                                                  <a href="index.php?halaman=form_data_master&kode=pelanggan_insert" class="btn btn-danger">Input data pelanggan</a>
+                                                  <!--<a href="index.php?halaman=form_data_master&kode=pelanggan_insert" class="btn btn-danger">Input data pelanggan</a>-->
 												</form>
 											</div>
 										</div>
@@ -72,8 +95,10 @@ $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <th>Alamat</th>
           <th>Email</th>
           <th>Kontak</th>
-          <th colspan="3" align="center">Aksi
+          <?php if($_REQUEST['act']!="") {?>
+          <th colspan="3"><center>Aksi</center>
           </th>
+            <?php } ?>
         </tr>
         </thead>
         <tbody>
@@ -97,14 +122,18 @@ $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <td><?php echo "$row3[pelanggan_alamat]"; ?></td>
           <td><?php echo "$row3[pelanggan_email]"; ?></td>
           <td><?php echo "$row3[pelanggan_kontak]"; ?></td>
-          <td><?php echo "<a href=index.php?halaman=form_ubah_data&kode=pelanggan_update&id=$row3[pelanggan_id]>"; ?>
-          	  <div id="tombol">ubah</div>
+          <?php if($_REQUEST['act']!="") { ?>
+          <?php if($_REQUEST['act']=="ubah") { ?>
+          <td align="center"><?php echo "<a class='btn btn-warning' href=index.php?halaman=form_ubah_data&kode=pelanggan_update&id=$row3[pelanggan_id]>"; ?>
+          	  <i class="fa fa-edit"></i>&nbsp;ubah
 			  <?php echo "</a>";?>
           </td>
-          <td><?php echo "<a href=proses.php?proses=pelanggan_delete&id=$row3[pelanggan_id]>"; ?>
-          	  <div id="tombol" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')">hapus</div>
+          <?php } else if($_REQUEST['act']=="hapus") { ?>
+          <td align="center"><?php echo "<a class='btn btn-danger' href=proses.php?proses=pelanggan_delete&id=$row3[pelanggan_id]>"; ?>
+          	  <div id="tombol" onclick="return confirm('Apakah Anda akan menghapus data buah ini ?')"><i class="fa fa-trash-o"></i>&nbsp;hapus</div>
 			  <?php echo "</a>"; ?>
           </td>
+          <?php } } ?>
         </tr>
        
         

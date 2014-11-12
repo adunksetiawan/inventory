@@ -99,6 +99,7 @@ td
 	}
 	else
 	{
-		echo "anda tidak berhak meng-akses halaman ini !";
+		echo '<script type="text/javascript">alert("Anda tidak diizinkan mengakses halaman ini.");</script>';
+        lompat_ke("index.php");
 	}
 ?>
