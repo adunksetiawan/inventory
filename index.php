@@ -4,7 +4,21 @@ session_start();
 require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
 
+function function_menu($menunya) {
+    $id_menu=$menunya;
+    return $id_menu;
+}
 
+function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
+    $qck="select id_menu, id_menu_tree from account_menu where username='$sesi' and id_menu='$id_menu' and id_menu_tree='$id_menu_tree'";
+    $rck=mysql_query($qck);
+    $rck=mysql_num_rows($rck);
+    
+    if(($rck=="")||($rck<1)) {
+        echo '<script type="text/javascript">alert("Anda tidak diizinkan mengakses halaman ini.");</script>';
+        lompat_ke("index.php");
+    } 
+}
 
 ?>
 <!DOCTYPE html>
@@ -56,7 +70,7 @@ require_once "library/fungsi_standar.php";
 		<div class="container">
 				<div class="navbar-brand">
 					<!-- COMPANY LOGO -->
-					<a href="index.html">
+					<a href="index.php">
 						<img src="img/logo/logo.png" alt="Cloud Admin Logo" class="img-responsive" height="30" width="120">
 					</a>
 					<!-- /COMPANY LOGO -->
@@ -77,7 +91,7 @@ require_once "library/fungsi_standar.php";
 				</div>
 				<!-- NAVBAR LEFT -->
 				<ul class="nav navbar-nav pull-left hidden-xs" id="navbar-left">
-					<li class="dropdown">
+					<!--<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-cog"></i>
 							<span class="name">Skins</span>
@@ -94,7 +108,43 @@ require_once "library/fungsi_standar.php";
 							<li><a href="#" data-skin="nature">Nature</a></li>
 							<li><a href="#" data-skin="graphite">Graphite</a></li>
 						 </ul>
-					</li>
+					</li>-->
+                    <?php 
+                        $mn="select * from account_menu as a, menus as b where a.id_menu=b.id_menu and a.id_menu_tree=b.id_menu_tree and 
+                        a.username='".$_SESSION['username']."' order by b.id_menu asc";
+                        $rsm=mysql_query($mn);
+                        
+                        
+                        while($menus=mysql_fetch_array($rsm)) {
+                        
+                        if($menus['id_menu_tree']==1) {    
+                        $menunya=$menus['id_menu'];
+                        function_menu($menunya);
+                        
+                        //$ckbaris=mysql_query("select id_menu_tree from menus where id_menu='".$menus['id_menu']."'");
+                        //$baris=mysql_num_rows($ckbaris);
+                        
+                        ?>
+							<li class="dropdown">
+								<a href="<?=$menus['url']?>" class="dropdown-toggle" <?php if($baris>1) { ?> data-toggle="dropdown" <?php } ?>>
+								<span class="menu-text"><?=$menus['nm_menu']?></span>
+								<span class="selected"></span>
+                                <?php if($baris>1) { ?>	
+                                <i class="fa fa-angle-down"></i>
+                                <?php } ?>
+								</a>
+                                <?php if($baris>1) { ?>	
+                                <ul class="dropdown-menu skins">
+							         <li><a href="#" data-skin="default">Subtle (default)</a></li>
+							         <li><a href="#" data-skin="night">Night</a></li>
+							         <li><a href="#" data-skin="earth">Earth</a></li>
+							         <li><a href="#" data-skin="utopia">Utopia</a></li>
+							         <li><a href="#" data-skin="nature">Nature</a></li>
+							         <li><a href="#" data-skin="graphite">Graphite</a></li>
+		                        </ul>
+                                <?php } ?>    				
+							</li>
+                    <?php } else { echo ""; } } ?>
 				</ul>
 				<!-- /NAVBAR LEFT -->
 				<!-- BEGIN TOP NAVIGATION MENU -->					
@@ -130,7 +180,12 @@ require_once "library/fungsi_standar.php";
 					<li class="dropdown user" id="header-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img alt="" src="img/avatars/ava1.png" />
-							<span class="username">John Doe</span>
+							<?php 
+                            
+                            $nm=mysql_fetch_array(mysql_query("select nama from account where username='".$_SESSION['username']."'"));
+                            
+                            ?>
+                            <span class="username"><?=ucfirst($nm['nama']);?></span>&nbsp;
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
@@ -164,20 +219,47 @@ require_once "library/fungsi_standar.php";
 						
 						<!-- SIDEBAR MENU -->
 						<ul>
-                        <?php 
-                        $mn="select * from account_menu as a, menus as b where a.id_menu=b.id_menu and a.id_menu_tree=b.id_menu_tree and 
-                        a.username='".$_SESSION['username']."' order by b.id_menu asc";
-                        $rsm=mysql_query($mn);
-                        
-                        while($menus=mysql_fetch_array($rsm)) {
-                        ?>
-							<li>
-								<a href="<?=$menus['url']?>">
-								<i class="<?=$menus['custom_class']?>"></i> <span class="menu-text"><?=$menus['nm_menu']?></span>
+							<!--<li class="active">
+								<a href="index.php">
+								<i class="fa fa-tachometer fa-fw"></i> <span class="menu-text">Dashboard</span>
+								<span class="selected"></span>
+								</a>					
+							</li>-->
+                            <?php 
+                            
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                            
+                            if($_REQUEST['halaman']!="") {
+                            
+                            $qrya="select id_menu from menus where url like '$gethal%'";
+                            $ck=mysql_query($qrya);
+                            $dtck=mysql_fetch_array($ck);
+                            //echo "<br>".$dtck['id_menu'];
+                            }
+                            
+                            $qry="select a.id_menu, a.id_menu_tree, b.nm_menu, b.url, b.custom_class from account_menu as a, menus as b where a.id_menu=b.id_menu and a.id_menu_tree=b.id_menu_tree and a.id_menu='".$dtck['id_menu']."' and username='".$_SESSION['username']."' order by a.id_menu_tree asc";
+                            $sub=mysql_query($qry);
+                            while($submenu=mysql_fetch_array($sub)) {
+                                
+                            
+                            //cek_hak_akses($submenu['id_menu'], $submenu['id_menu_tree'], $_SESSION['username']);    
+                            
+                            
+                            ?>
+                            <li>
+								<a href="<?=$submenu['url'];?>">
+								<i class="<?=$submenu['custom_class']?>"></i> <span class="menu-text"><?=$submenu['nm_menu']?></span>
 								<span class="selected"></span>
 								</a>					
 							</li>
-                            <?php } ?>
+                            <?php }  ?>
 						</ul>
 						<!-- /SIDEBAR MENU -->
 					</div>
