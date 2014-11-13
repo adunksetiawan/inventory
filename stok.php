@@ -6,7 +6,7 @@ require_once "library/fungsi_standar.php";
 $self 			= $_SERVER['PHP_SELF'];
 $page			= $_REQUEST['module'];
 $page			= $_REQUEST['page']?$_REQUEST['page']:"1";
-$maxrow			= $_REQUEST['maxrow']?$_REQUEST['maxrow']:"25";
+$maxrow			= $_REQUEST['maxrow']?$_REQUEST['maxrow']:"15";
 
 $cari			= $_REQUEST['tcari'];
 

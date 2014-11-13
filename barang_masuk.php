@@ -3,7 +3,7 @@
 $self           = $_SERVER['PHP_SELF'];
 $page           = $_REQUEST['module'];
 $page           = $_REQUEST['page']?$_REQUEST['page']:"1";
-$maxrow         = $_REQUEST['maxrow']?$_REQUEST['maxrow']:"25";
+$maxrow         = $_REQUEST['maxrow']?$_REQUEST['maxrow']:"15";
 
 $tgl_awal           = $_REQUEST['tgl_awal'];
 $tgl_akhir          = $_REQUEST['tgl_akhir'];
