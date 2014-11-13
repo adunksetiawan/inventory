@@ -82,7 +82,7 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 										</div>
 									</div>
 									<div class="box-body">
-										<table class="table table-hover">
+										<table class="table table-hover table-bordered">
 											<thead>
 											  <tr>
 												<th>No</th>

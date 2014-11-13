@@ -72,7 +72,7 @@ $akun.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 											</div>
 											<div class="box-body big">    
 
-<table class="table table-hover">
+<table class="table table-hover table-bordered">
 <thead>
   <tr>
     <th id="namaField">Nama</th>

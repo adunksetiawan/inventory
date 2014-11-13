@@ -80,7 +80,7 @@ function myFunction(url) {
             </div>
 
             <div class="box-body">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th id="namaField">No.Trans</th>
