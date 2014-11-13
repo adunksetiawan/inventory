@@ -189,7 +189,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i class="fa fa-user"></i> My Profile</a></li>
+							<li><a href="index.php?halaman=profil_user"><i class="fa fa-user"></i> Profil akun</a></li>
 							<li><a href="logout.php"><i class="fa fa-power-off"></i> Log Out</a></li>
 						</ul>
 					</li>
