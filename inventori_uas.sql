@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: inventori_uas
 Target Host: localhost
 Target Database: inventori_uas
-Date: 10-Nov-14 4:59:50 PM
+Date: 13-Nov-14 9:43:33 AM
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -130,7 +130,7 @@ CREATE TABLE `menus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `custom_class` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Table structure for pelanggan
@@ -210,7 +210,7 @@ CREATE TABLE `temp_jual_detail` (
 -- ----------------------------
 -- Records 
 -- ----------------------------
-INSERT INTO `account` VALUES ('21232f297a57a5a743894a0e4a801fc3', '21232f297a57a5a743894a0e4a801fc3', 'administrator', 'admin');
+INSERT INTO `account` VALUES ('21232f297a57a5a743894a0e4a801fc3', '21232f297a57a5a743894a0e4a801fc3', 'Agus Setiawan', 'admin');
 INSERT INTO `account` VALUES ('f8829935a87192f3f9fab79856122c0f', 'f8829935a87192f3f9fab79856122c0f', 'Tamu', 'user');
 INSERT INTO `account` VALUES ('fdf169558242ee051cca1479770ebac3', 'fdf169558242ee051cca1479770ebac3', 'agus', 'user');
 INSERT INTO `account_menu` VALUES ('1', '1', 'f8829935a87192f3f9fab79856122c0f');
@@ -228,10 +228,23 @@ INSERT INTO `account_menu` VALUES ('4', '1', 'f8829935a87192f3f9fab79856122c0f')
 INSERT INTO `account_menu` VALUES ('5', '1', 'f8829935a87192f3f9fab79856122c0f');
 INSERT INTO `account_menu` VALUES ('6', '1', 'f8829935a87192f3f9fab79856122c0f');
 INSERT INTO `account_menu` VALUES ('7', '1', 'f8829935a87192f3f9fab79856122c0f');
-INSERT INTO `account_menu` VALUES ('8', '1', 'f8829935a87192f3f9fab79856122c0f');
 INSERT INTO `account_menu` VALUES ('1', '1', 'fdf169558242ee051cca1479770ebac3');
-INSERT INTO `account_menu` VALUES ('2', '1', 'fdf169558242ee051cca1479770ebac3');
+INSERT INTO `account_menu` VALUES ('2', '4', 'fdf169558242ee051cca1479770ebac3');
 INSERT INTO `account_menu` VALUES ('7', '1', 'fdf169558242ee051cca1479770ebac3');
+INSERT INTO `account_menu` VALUES ('9', '1', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('2', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('2', '3', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('2', '4', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('3', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('3', '3', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('3', '4', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('4', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('4', '3', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('4', '4', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('5', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('6', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('7', '2', '21232f297a57a5a743894a0e4a801fc3');
+INSERT INTO `account_menu` VALUES ('7', '3', '21232f297a57a5a743894a0e4a801fc3');
 INSERT INTO `barang` VALUES ('1', 'COMP', 'dark compound grande (4x5Kg)', 'compund', '4', '5', '38000');
 INSERT INTO `barang` VALUES ('2', 'COMP', 'dark compound grande (12x1Kg)', 'compund', '12', '1', '39000');
 INSERT INTO `barang` VALUES ('3', 'COMP', 'milk compound (4x5Kg)', 'compund', '4', '5', '39000');
@@ -249,6 +262,7 @@ INSERT INTO `beli` VALUES ('9', 'BM-9', 'FAK-9', '10/11/2014', 'Dani Kurniawan',
 INSERT INTO `beli` VALUES ('10', 'BM-10', 'FAK-10', '10/11/2014', 'Dani Kurniawan', '100000', '600000', '0');
 INSERT INTO `beli` VALUES ('11', 'BM-11', 'FAK-11', '10/11/2014', 'Agus Setiawan', '0', '468000', '0');
 INSERT INTO `beli` VALUES ('12', 'BM-12', 'FAK-12', '10/11/2014', 'Agus Setiawan', '0', '468000', '0');
+INSERT INTO `beli` VALUES ('13', 'BM-13', 'FAK-13', '12/11/2014', 'Dani Kurniawan', '0', '480000', '0');
 INSERT INTO `beli_detail` VALUES ('BM-1', '2', 'dark compound grande (12x1Kg)', 'compu', '1', '12x1kg', '39000', '468000');
 INSERT INTO `beli_detail` VALUES ('BM-1', '1', 'dark compound grande (4x5Kg)', 'compu', '1', '4x5kg', '38000', '760000');
 INSERT INTO `beli_detail` VALUES ('BM-1', '4', 'milk compound (12x1Kg)', 'compu', '1', '12x1kg', '40000', '480000');
@@ -264,6 +278,7 @@ INSERT INTO `beli_detail` VALUES ('BM-9', '2', 'dark compound grande (12x1Kg)', 
 INSERT INTO `beli_detail` VALUES ('BM-10', '5', 'dark compound grande Plussss (4x5Kg)', 'Compo', '100', '12x1kg', '50000', '600000');
 INSERT INTO `beli_detail` VALUES ('BM-11', '2', 'dark compound grande (12x1Kg)', 'compu', '2', '12x1kg', '39000', '468000');
 INSERT INTO `beli_detail` VALUES ('BM-12', '2', 'dark compound grande (12x1Kg)', 'compu', '200', '12x1kg', '39000', '468000');
+INSERT INTO `beli_detail` VALUES ('BM-13', '4', 'milk compound (12x1Kg)', 'compu', '100', '12x1kg', '40000', '480000');
 INSERT INTO `jual` VALUES ('1', 'JL-1', 'nota-1', '07/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '936000', '0', '');
 INSERT INTO `jual` VALUES ('2', 'JL-2', 'nota-2', '07/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '1884000', '0', '');
 INSERT INTO `jual` VALUES ('3', 'JL-3', 'nota-3', '07/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '468000', '0', '');
@@ -281,6 +296,7 @@ INSERT INTO `jual` VALUES ('14', 'JL-14', 'nota-14', '07/11/2014', '21232f297a57
 INSERT INTO `jual` VALUES ('15', 'JL-15', 'nota-15', '10/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '936000', '0', '');
 INSERT INTO `jual` VALUES ('16', 'JL-16', 'nota-16', '10/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '14040000', '14000000', '11/02/2014');
 INSERT INTO `jual` VALUES ('17', 'JL-17', 'nota-17', '10/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '4680000', '4680000', '10/11/2014');
+INSERT INTO `jual` VALUES ('18', 'JL-18', 'nota-18', '12/11/2014', '21232f297a57a5a743894a0e4a801fc3', 'umum', '3800000', '3000000', '11/11/2014');
 INSERT INTO `jual_detail` VALUES ('JL-1', '2', 'dark compound grande (12x1Kg)', 'compu', '1', 'box', '468000', '468000');
 INSERT INTO `jual_detail` VALUES ('JL-1', '2', 'dark compound grande (12x1Kg)', 'compu', '1', 'box', '468000', '468000');
 INSERT INTO `jual_detail` VALUES ('JL-2', '2', 'dark compound grande (12x1Kg)', 'compu', '2', 'box', '468000', '936000');
@@ -303,19 +319,34 @@ INSERT INTO `jual_detail` VALUES ('JL-16', '2', 'dark compound grande (12x1Kg)',
 INSERT INTO `jual_detail` VALUES ('JL-16', '2', 'dark compound grande (12x1Kg)', 'compu', '10', '12x1kg', '468000', '4680000');
 INSERT INTO `jual_detail` VALUES ('JL-16', '2', 'dark compound grande (12x1Kg)', 'compu', '10', '12x1kg', '468000', '4680000');
 INSERT INTO `jual_detail` VALUES ('JL-17', '2', 'dark compound grande (12x1Kg)', 'compu', '10', '12x1kg', '468000', '4680000');
-INSERT INTO `menus` VALUES ('1', '1', 'Beranda', 'index.php', '1', 'fa fa-tachometer fa-fw');
-INSERT INTO `menus` VALUES ('2', '1', 'Barang', '?halaman=data_barang', '2', 'fa fa-briefcase fa-fw');
-INSERT INTO `menus` VALUES ('3', '1', 'Supplier', '?halaman=data_supplier', '3', 'fa fa-user fa-fw');
-INSERT INTO `menus` VALUES ('4', '1', 'Pelanggan', '?halaman=data_pelanggan', '4', 'fa fa-users fa-fw');
-INSERT INTO `menus` VALUES ('5', '1', 'Barang Masuk', '?halaman=barang_masuk', '5', 'fa fa-arrow-left fa-fw');
-INSERT INTO `menus` VALUES ('6', '1', 'Penjualan', '?halaman=penjualan', '6', 'fa fa-shopping-cart fa-fw');
-INSERT INTO `menus` VALUES ('7', '1', 'Stok', '?halaman=stok', '7', 'fa fa-archive fa-fw');
-INSERT INTO `menus` VALUES ('8', '1', 'Data Akun', '?halaman=data_akun', '8', 'fa fa-user fa-fw');
+INSERT INTO `jual_detail` VALUES ('JL-18', '1', 'dark compound grande (4x5Kg)', 'compu', '5', '4x5kg', '760000', '3800000');
+INSERT INTO `menus` VALUES ('1', '1', 'Home', 'index.php', '1', 'fa fa-home fa-fw');
+INSERT INTO `menus` VALUES ('2', '1', 'Barang', 'index.php?halaman=data_barang', '2', 'fa fa-briefcase fa-fw');
+INSERT INTO `menus` VALUES ('3', '1', 'Supplier', 'index.php?halaman=data_supplier', '3', 'fa fa-user fa-fw');
+INSERT INTO `menus` VALUES ('4', '1', 'Pelanggan', 'index.php?halaman=data_pelanggan', '4', 'fa fa-users fa-fw');
+INSERT INTO `menus` VALUES ('5', '1', 'Barang Masuk', 'index.php?halaman=barang_masuk', '5', 'fa fa-arrow-left fa-fw');
+INSERT INTO `menus` VALUES ('6', '1', 'Barang Keluar', 'index.php?halaman=penjualan', '6', 'fa fa-arrow-right fa-fw');
+INSERT INTO `menus` VALUES ('7', '1', 'Stok', 'index.php?halaman=stok', '7', 'fa fa-archive fa-fw');
+INSERT INTO `menus` VALUES ('8', '1', 'Akun', 'index.php?halaman=data_akun', '8', 'fa fa-user fa-fw');
+INSERT INTO `menus` VALUES ('9', '1', 'Data Menu', 'index.php?halaman=data_menu', '9', 'fa fa-align-justify fa-fw');
+INSERT INTO `menus` VALUES ('2', '2', 'Input Data Barang', 'index.php?halaman=form_data_master&kode=barang_insert', '14', 'fa fa-plus fa-fw');
+INSERT INTO `menus` VALUES ('2', '3', 'Ubah Data Barang', 'index.php?halaman=data_barang&act=ubah', '15', 'fa fa-edit fa-fw');
+INSERT INTO `menus` VALUES ('2', '4', 'Hapus Data Barang', 'index.php?halaman=data_barang&act=hapus', '16', 'fa fa-minus fa-fw');
+INSERT INTO `menus` VALUES ('3', '2', 'Input Data Supplier', 'index.php?halaman=form_data_master&kode=supplier_insert', '17', 'fa fa-plus fa-fw');
+INSERT INTO `menus` VALUES ('3', '3', 'Ubah Data Supplier', 'index.php?halaman=data_supplier&act=ubah', '18', 'fa fa-edit fa-fw');
+INSERT INTO `menus` VALUES ('3', '4', 'Hapus Data Supplier', 'index.php?halaman=data_supplier&act=hapus', '19', 'fa fa-minus fa-fw');
+INSERT INTO `menus` VALUES ('4', '2', 'Input Data Pelanggan', 'index.php?halaman=form_data_master&kode=pelanggan_insert', '20', 'fa fa-plus fa-fw');
+INSERT INTO `menus` VALUES ('4', '3', 'Ubah Data Pelanggan', 'index.php?halaman=data_pelanggan&act=ubah', '21', 'fa fa-edit fa-fw');
+INSERT INTO `menus` VALUES ('4', '4', 'Hapus Data Pelanggan', 'index.php?halaman=data_pelanggan&act=hapus', '22', 'fa fa-minus fa-fw');
+INSERT INTO `menus` VALUES ('5', '2', 'Input Barang Masuk', 'index.php?halaman=form_beli', '23', 'fa fa-plus fa-fw');
+INSERT INTO `menus` VALUES ('6', '2', 'Input Barang Keluar', 'index.php?halaman=form_jual', '24', 'fa fa-plus fa-fw');
+INSERT INTO `menus` VALUES ('7', '2', 'Ubah Stok', 'index.php?halaman=stok&act=ubah', '25', 'fa fa-edit fa-fw');
+INSERT INTO `menus` VALUES ('7', '3', 'Hapus Stok', 'index.php?halaman=stok&act=hapus', '26', 'fa fa-minus fa-fw');
 INSERT INTO `pelanggan` VALUES ('1', 'PLG-1', 'Hilal', 'Cililin', 'Bandung', 'hilal@hilal.com', '081123456');
 INSERT INTO `pelanggan` VALUES ('2', 'PLG-2', 'Hendi', 'Cilampeni', 'Bandung', 'hendi@hendi.com', '081234567');
 INSERT INTO `stok` VALUES ('2', 'dark compound grande (12x1Kg)', 'compu', '270', '12x1kg', '468000');
-INSERT INTO `stok` VALUES ('1', 'dark compound grande (4x5Kg)', 'compu', '20', '4x5kg', '760000');
-INSERT INTO `stok` VALUES ('4', 'milk compound (12x1Kg)', 'compu', '0', '12x1kg', '480000');
+INSERT INTO `stok` VALUES ('1', 'dark compound grande (4x5Kg)', 'compu', '15', '4x5kg', '760000');
+INSERT INTO `stok` VALUES ('4', 'milk compound (12x1Kg)', 'compu', '100', '12x1kg', '480000');
 INSERT INTO `stok` VALUES ('3', 'milk compound (4x5Kg)', 'compu', '100', '4x5kg', '780000');
 INSERT INTO `supplier` VALUES ('1', 'SPL-1', 'Agus Setiawan', 'Jl. Somawinata Kebon Kalapa 39', 'Bandung', 'aswansetiawan01@gmail.com', '085722864906');
 INSERT INTO `supplier` VALUES ('2', 'SPL-2', 'Dani Kurniawan', 'Jl. Somawinata Kebon Kalapa 39', 'Bandung', 'aswansetiawan01@gmail.com', '085722864906');
