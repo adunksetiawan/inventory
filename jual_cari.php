@@ -10,7 +10,7 @@ $tgl_akhir		= $pch2[1]."/".$pch2[0]."/".$pch2[2];
 								<!-- BOX -->
 								<div class="box border red">
 									<div class="box-title">
-										<h4><i class="fa fa-shopping-cart"></i>Penjualan barang dari tgl <?=$tgl_awal?> s/d <?=$tgl_akhir?></h4>
+										<h4><i class="fa fa-arrow-right"></i>Pengeluaran barang dari tgl <?=$tgl_awal?> s/d <?=$tgl_akhir?></h4>
 										<div class="tools">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>

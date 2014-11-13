@@ -48,7 +48,7 @@ require_once "library/fungsi_standar.php";
 											
 											<div class='row'>
 												<div class='col-lg-12 payment-info'>
-												  <div class='invoice-title text-muted'>Detail Penjualan</div>
+												  <div class='invoice-title text-muted'>Detail Pengeluaran Barang</div>
 												  <div class="well">
 													  <strong>No. Transaksi: </strong> <?php echo "$data[jual_id]"; ?>
 													  <br>
