@@ -179,7 +179,7 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
         <table class="table table-hover">
   			<tr>
     			<td>Nama Barang</td>
-    			<td>Qty</td>
+    			<td>Jumlah</td>
     			<td>Menu</td>
   			</tr>
   			<tr>

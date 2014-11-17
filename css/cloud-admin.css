@@ -5615,6 +5615,11 @@ td.visible-sm {
   td.visible-sm.visible-lg {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
 }
 .visible-md,
 tr.visible-md,
@@ -5636,6 +5641,22 @@ td.visible-md {
   td.visible-md.visible-xs {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: inline-block;
+  }
+  
+  #main-content {
+    margin-left: 0px !important;
+  }
+  
+  table {
+		overflow-x: auto;
+		display: block;
+	}
+  
+  
+  
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .visible-md.visible-sm {
@@ -5651,6 +5672,20 @@ td.visible-md {
   td.visible-md.visible-sm {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
+  #main-content {
+    margin-left: 0px !important;
+  }
+  
+  table {
+		overflow-x: auto;
+		display: block;
+	}
+  
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .visible-md {
@@ -5666,6 +5701,11 @@ td.visible-md {
   td.visible-md {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
 }
 @media (min-width: 1200px) {
   .visible-md.visible-lg {
@@ -5681,6 +5721,11 @@ td.visible-md {
   td.visible-md.visible-lg {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
 }
 .visible-lg,
 tr.visible-lg,
@@ -5702,6 +5747,20 @@ td.visible-lg {
   td.visible-lg.visible-xs {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: inline-block;
+  }
+  
+  #main-content {
+    margin-left: 0px !important;
+  }
+  
+  table {
+		overflow-x: auto;
+		display: block;
+	}
+  
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .visible-lg.visible-sm {
@@ -5717,6 +5776,20 @@ td.visible-lg {
   td.visible-lg.visible-sm {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
+  #main-content {
+    margin-left: 0px !important;
+  }
+  
+  table {
+		overflow-x: auto;
+		display: block;
+	}
+  
 }
 @media (min-width: 992px) and (max-width: 1199px) {
   .visible-lg.visible-md {
@@ -5732,6 +5805,11 @@ td.visible-lg {
   td.visible-lg.visible-md {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  }
+  
 }
 @media (min-width: 1200px) {
   .visible-lg {
@@ -5747,6 +5825,11 @@ td.visible-lg {
   td.visible-lg {
     display: table-cell !important;
   }
+  
+  #navs {
+    display: none;
+  } 
+  
 }
 .hidden-xs {
   display: block !important;
@@ -5768,6 +5851,20 @@ td.hidden-xs {
   td.hidden-xs {
     display: none !important;
   }
+  
+  #navs {
+    display: inline-block;
+  }  
+  
+  #main-content {
+    margin-left: 0px !important;
+  }
+  
+  table {
+		overflow-x: auto;
+		display: block;
+	}
+}
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .hidden-xs.hidden-sm,

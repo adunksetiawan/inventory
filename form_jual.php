@@ -208,7 +208,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
         <table border="0" cellspacing="1" cellpadding="0" class="table table-hover" width="100%">
           <tr>
             <td id="namaField">Pilih Barang</td>
-            <td id="namaField">Qty</td>
+            <td id="namaField">Jumlah</td>
             <td id="namaField">add</td>
           </tr>
           <tr>
