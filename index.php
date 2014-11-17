@@ -63,6 +63,17 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 		$( "#datepicker1" ).datepicker();
 	});
 	</script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#navs").change(function() {
+                var url = $(this).val();
+                window.location.href = url; 
+                $("#sidebar").hide();
+            });
+        });
+    </script>
+    
 </head>
 <body>
 	<!-- HEADER -->
@@ -146,6 +157,47 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 							</li>
                     <?php } else { echo ""; } } ?>
 				</ul>
+                
+                <select id="navs" class="form-control">
+                    <option value="" selected="selected">Pilih Menu</option>
+                <?php 
+                        $mn="select * from account_menu as a, menus as b where a.id_menu=b.id_menu and a.id_menu_tree=b.id_menu_tree and 
+                        a.username='".$_SESSION['username']."' order by b.id_menu asc, b.id_menu_tree asc";
+                        $rsm=mysql_query($mn);
+                        
+                        
+                        while($menus=mysql_fetch_array($rsm)) {
+                        
+                        $menunya=$menus['id_menu'];
+                        function_menu($menunya);
+                        
+                        
+                            if($_REQUEST['kode']!="") { 
+                                $kode=$_REQUEST['kode'];
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&kode=".$kode;
+                            } else if(($_REQUEST['kode']!="")&&($_REQUEST['id']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            } else if(($_REQUEST['halaman']!="")&&($_REQUEST['act']!="")) {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman']."&act=".$_REQUEST['act'];
+                            } else {
+                                $gethal="index.php?halaman=".$_REQUEST['halaman'];
+                            }
+                        
+                        
+                        //$ckbaris=mysql_query("select id_menu_tree from menus where id_menu='".$menus['id_menu']."'");
+                        //$baris=mysql_num_rows($ckbaris);
+                        
+                        if($menus['id_menu_tree']!=1) {
+                            $menusel="&nbsp;&nbsp;-&nbsp;".$menus['nm_menu'];
+                        } else {
+                            $menusel=$menus['nm_menu'];
+                        }
+                        
+                        ?> 
+                    <option value="<?=$menus['url']?>" <?php if($gethal==$menus['url']) { echo "selected"; }?>><?=$menusel;?></option> 
+                <?php } ?>
+                </select> 
+                
 				<!-- /NAVBAR LEFT -->
 				<!-- BEGIN TOP NAVIGATION MENU -->					
 				<ul class="nav navbar-nav pull-right">
