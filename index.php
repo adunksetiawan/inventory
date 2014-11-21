@@ -3,6 +3,7 @@
 session_start();
 require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
+require_once "fungsi_halaman.php";
 
 
 function function_menu($menunya) {
@@ -348,12 +349,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 									<!-- STYLER -->
 									
 									<!-- /STYLER -->
-                                    <?php 
-									$halaman=str_replace("_", " ", ucfirst($_GET['halaman']));
-									if(empty($halaman)) {
-										$halaman="Beranda";	
-									} 
-									?>
+                                    
 									<!-- BREADCRUMBS -->
 									<ul class="breadcrumb">
 										<li>

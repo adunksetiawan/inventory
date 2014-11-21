@@ -52,9 +52,13 @@ $url="";
 		case "barang_insert":
 			{
 				$brgKode=$_POST['Barang_Kode'];
-				$barangKode=str_ireplace(" ",_,$brgKode);
+				$barangKode=str_ireplace(" ","",$brgKode);
 				$nama_tabel="barang";
-				$values="'$_POST[inc]', '$barangKode', '$_POST[nmBarang]', '$_POST[kategori]', '$_POST[satuan]', '$_POST[kg]', '$_POST[harga_satuan]'";
+                
+                $ckat=mysql_query("select nm_kat from barang_kategori where kode_kat='$_POST[kategori]'");
+                $dtkat=mysql_fetch_array($ckat);
+                
+				$values="'$_POST[inc]', '$barangKode', '$_POST[nmBarang]', '$dtkat[nm_kat]', '$_POST[satuan]', '$_POST[kg]', '$_POST[harga_satuan]'";
 				$hal="data_barang";
 				insert($nama_tabel,$values);
 				break;
@@ -118,7 +122,7 @@ $url="";
 				{
 					//insert data
 					$stok="INSERT INTO stok(barang_id, barang_nama, kategori, qty, packing, harga_barang)
-					VALUES('$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$dtmp[qty]', '$dtmp[packing]')";
+					VALUES('$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$dtmp[qty]', '$dtmp[packing]', '$dtmp[harga_satuan]')";
 					mysql_query($stok);
 				}
 				else

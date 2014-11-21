@@ -74,13 +74,32 @@ require_once "library/fungsi_standar.php";
 		$b="SELECT inc FROM barang ORDER BY inc DESC LIMIT 1";
 		$inc=penambahan($a, $b);
 	?>	
-    
+    <script>
+    $(document).ready(function() {
+        $("#kategori").change(function() {
+            var idkat = $(this).val();
+            var url='ambil_kategori.php?idkat='+idkat;
+            
+            if(idkat!="") { 
+            
+            $.ajax({
+                url:url,
+                success:function(result){
+                    $("#barang_kode").val(result);
+                }
+            });
+            } else {
+                $("#barang_kode").val(null);
+            }
+        });
+    });
+    </script>
     <div class="row">
 <div class="col-lg-12">
 										<!-- BASIC -->
 										<div class="box border red">
 											<div class="box-title">
-												<h4><i class="fa fa-briefcase"></i>Input data barang</h4>
+												<h4><i class="fa fa-briefcase"></i><?=$halaman?></h4>
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
 														<i class="fa fa-cog"></i>
@@ -100,9 +119,25 @@ require_once "library/fungsi_standar.php";
 												<form role="form" class="form-horizontal">
 												  <table border="0" cellspacing="2" cellpadding="0" width="100%">
           <tr>
+            <td>Kategori Barang</td>
+            <td>:&nbsp;</td>
+            <td><label>
+              <!--<input placeholder="Kategori Barang" name="kategori" type="text" id="input" class="form-control" size="50" maxlength="70" />-->
+              <select class="form-control" id="kategori" name="kategori">
+                    <option value="">Pilih Kategori</option>
+                   <?php 
+                   $qrykat=mysql_query("select id_kat, kode_kat, nm_kat from barang_kategori order by id_kat asc");
+                   while($dtkat=mysql_fetch_array($qrykat)) {
+                   ?>
+                   <option value="<?=$dtkat['kode_kat']?>"><?=$dtkat['nm_kat']?></option>
+                   <?php } ?>  
+              </select>
+            </label></td>
+          </tr>
+          <tr>
             <td>Kode Barang</td><input type="hidden" name="inc" id="inc" value="<?=$inc;?>" />
             <td>:&nbsp;</td>
-            <td><label><input placeholder="Kode Barang" name="Barang_Kode" type="text" id="input" class="form-control" size="50" maxlength="70" /></label></td>
+            <td><label><input placeholder="Kode Barang" name="Barang_Kode" type="text" id="barang_kode" class="form-control" size="50" maxlength="70" readonly /></label></td>
           </tr>
           <tr>
             <td>Nama Barang</td>
@@ -111,13 +146,7 @@ require_once "library/fungsi_standar.php";
               <input placeholder="Nama Barang" name="nmBarang" type="text" id="input" class="form-control" size="50" maxlength="70" />
             </label></td>
           </tr>
-		      <tr>
-            <td>Kategori Barang</td>
-            <td>:&nbsp;</td>
-            <td><label>
-              <input placeholder="Kategori Barang" name="kategori" type="text" id="input" class="form-control" size="50" maxlength="70" />
-            </label></td>
-          </tr>
+		      
            <tr>
             <td>Packing</td>
             <td>:&nbsp;</td>

@@ -71,7 +71,7 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
         <div class="box border red">
             <div class="box-title">
-                <h4>Barang keluar</h4>
+                <h4><?=$halaman?></h4>
 
                 <div class="tools">
                     <a href="#box-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="remove"></a>

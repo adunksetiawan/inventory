@@ -46,7 +46,7 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 								<!-- BOX -->
 								<div class="box border red">
 									<div class="box-title">
-										<h4><i class="fa fa-user"></i>Data supplier</h4>
+										<h4><i class="fa fa-user"></i><?=$halaman?></h4>
 										<div class="tools">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>

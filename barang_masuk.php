@@ -72,7 +72,7 @@ function myFunction(url) {
 
         <div class="box border red">
             <div class="box-title">
-                <h4>Barang masuk</h4>
+                <h4><?=$halaman?></h4>
 
                 <div class="tools">
                     <a href="#box-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="remove"></a>

@@ -47,7 +47,7 @@ require_once "library/fungsi_standar.php";
           <tr>
             <td>Kode Barang</td><input type="hidden" name="inc" id="inc" value=<?=$data['inc'];?> />
             <td>:&nbsp;</td>
-            <td><label><input placeholder="Kode Barang" name="Barang_Kode" value="<?=$data['barang_id'];?>" type="text" id="input" class="form-control" size="50" maxlength="70" /></label></td>
+            <td><label><input placeholder="Kode Barang" readonly name="Barang_Kode" value="<?=$data['barang_id'];?>" type="text" id="input" class="form-control" size="50" maxlength="70" /></label></td>
           </tr>
           <tr>
             <td>Nama Barang</td>

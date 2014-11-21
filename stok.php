@@ -73,7 +73,7 @@ $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 								<!-- BOX -->
 								<div class="box border red">
 									<div class="box-title">
-										<h4><i class="fa fa-archive"></i>Data stok</h4>
+										<h4><i class="fa fa-archive"></i><?=$halaman?></h4>
 										<div class="tools">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>
@@ -144,11 +144,11 @@ $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 	<?php if($_REQUEST['act']!="") { ?>
     <?php if($_REQUEST['act']=="ubah") {?>
     <td colspan="2">
-		<a class="btn btn-warning" href="<?php echo "index.php?halaman=form_ubah_stok&id=$data[barang_id]";?>"><div id="tombol"><i class="fa fa-edit"></i>&nbsp;ubah</div></a>
+		<a class="btn btn-warning" href="<?php echo "index.php?halaman=form_ubah_stok&id=$dtstok[barang_id]";?>"><div id="tombol"><i class="fa fa-edit"></i>&nbsp;ubah</div></a>
 	</td>
     <?php } else if($_REQUEST['act']=="hapus") { ?>
     <td colspan="2">
-		<a class="btn btn-danger" href="<?php echo "proses.php?proses=hapus_stok&id=$data[barang_id]"; ?>" 
+		<a class="btn btn-danger" href="<?php echo "proses.php?proses=hapus_stok&id=$dtstok[barang_id]"; ?>" 
 		onclick="return confirm('Apakah Anda akan menghapus data stok ini ?')"><div id="tombol"><i class="fa fa-trash-o"></i>&nbsp;hapus</div></a>
 	</td>
 	<?php
