@@ -33,13 +33,13 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
 {
 	if (!empty($_POST['qty']))
 	{
-		$buah="SELECT * FROM barang WHERE barang_nama='$_POST[pilih_barang]'";
+		$buah="SELECT * FROM barang WHERE inc='$_POST[pilih_barang]'";
 		$qbuah=mysql_query($buah);
 		$dbuah=mysql_fetch_array($qbuah);
 		//insert ke temp_beli_detail
 		$harga_total=$dbuah['satuan']*$dbuah['kg']*$dbuah['harga_satuan'];
 		$input="INSERT INTO temp_beli_detail(beli_id, barang_id, barang_nama, kategori, qty, packing, harga_satuan, harga_total)
-		VALUES('BM-$inc', '$dbuah[inc]', '$_POST[pilih_barang]', '$dbuah[barang_kategori]', '$_POST[qty]', '$dbuah[satuan]x$dbuah[kg]kg', '$dbuah[harga_satuan]', '$harga_total')";
+		VALUES('BM-$inc', '$dbuah[inc]', '$dbuah[barang_nama]', '$dbuah[barang_kategori]', '$_POST[qty]', '$dbuah[satuan]x$dbuah[kg]kg', '$dbuah[harga_satuan]', '$harga_total')";
 		mysql_query($input);
 	}
 }
@@ -186,13 +186,13 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
     			<td>
     			  <select name="pilih_barang" id="input" class="form-control">
           <?php
-						$barang="SELECT * FROM barang ORDER BY barang_nama ASC";
-						$qbarang=mysql_query($barang);
-						while($dbarang=mysql_fetch_array($qbarang))
-						{
-							echo "<option>$dbarang[barang_nama]</option>";
-						}
-					?>
+			  	$stok="SELECT * FROM barang ORDER BY barang_nama ASC";
+				$qstok=mysql_query($stok);
+				while($dstok=mysql_fetch_array($qstok))
+				{
+					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]Kg)</option>";
+				}
+			  ?>
   			      </select>
   			  	</td>
     			 <td>

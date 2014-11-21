@@ -10,7 +10,7 @@ $maxrow			= $_REQUEST['maxrow']?$_REQUEST['maxrow']:"15";
 
 $cari			= $_REQUEST['tcari'];
 
-$sql="SELECT * FROM stok where true";	
+$sql="SELECT * FROM barang where true";	
 $sumQty="SELECT SUM(qty) AS totalQty FROM stok where true";
 
                             if($_REQUEST['kode']!="") { 
@@ -40,7 +40,7 @@ if($cari!="") {
 	$sql.=" and barang_nama LIKE '%$cari%'";
 	$sumQty.=" and barang_nama LIKE '%$cari%'";
 }
-$sql.=" order by barang_id asc";
+$sql.=" order by inc asc";
 $sumQty.=" order by barang_id asc";	
 $sqlnav=$sql;
 $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
@@ -111,21 +111,36 @@ $sql.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 		$query=mysql_query($sql);
 		while($data=mysql_fetch_array($query))
 		{
-			if ($warna==$warna1){
-				$warna=$warna2;
-			}
-			else{
-				$warna=$warna1;
-			}
+
+        $sqls="SELECT * FROM stok where barang_id='".$data['inc']."'";
+        $qrys=mysql_query($sqls);
+        $dtstok=mysql_fetch_array($qrys);
+        
 	echo "
   <tr bgcolor=$warna>
   	<td>$no</td>
     <td>$data[barang_id]</td>
     <td>$data[barang_nama]</td>
-    <td>$data[kategori]</td>
-    <td>$data[qty]</td>
-	<td>$data[packing]</td>
-	<td>$data[harga_barang]</td>"; ?>
+    <td>$data[barang_kategori]</td>
+    <td>";
+     
+    if($dtstok['qty']=="") {
+        echo "-";
+    } else {
+        echo $dtstok['qty'];
+    }
+    
+    echo "</td>
+	<td>$data[satuan]x$data[kg]kg</td>
+	<td>";
+    
+    if($dtstok['harga_barang']=="") {
+        echo "0";
+    } else {
+        echo $dtstok['harga_barang'];
+    }
+    
+    echo "</td>"; ?>
 	<?php if($_REQUEST['act']!="") { ?>
     <?php if($_REQUEST['act']=="ubah") {?>
     <td colspan="2">

@@ -366,7 +366,7 @@ switch($hapus){
 		$hapus="DELETE FROM temp_jual_detail WHERE barang_id='$_GET[id]'";
 		mysql_query($hapus);
 		$url="transaksi";
-		$hal="form_jual.php";
+		$hal="form_jual";
 		break;
 	}
 	case "hapus_stok":

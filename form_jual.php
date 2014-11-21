@@ -31,13 +31,13 @@ $inc=penambahan($a, $b);
 
 if (isset($_POST['run'])and($_POST['run']=="form2"))
 {
-	$cekQty="SELECT * FROM stok WHERE barang_nama='$_POST[pilih_barang]'";
+	$cekQty="SELECT * FROM stok WHERE barang_id='$_POST[pilih_barang]'";
 	$qcekQty=mysql_query($cekQty);
 	$dcekQty=mysql_fetch_array($qcekQty);
 	if (!empty($_POST['qty']))
 	{
 		//ambil dari stok
-		$buah="SELECT * FROM stok WHERE barang_nama='$_POST[pilih_barang]'";
+		$buah="SELECT * FROM stok WHERE barang_id='$_POST[pilih_barang]'";
 		$qbuah=mysql_query($buah);
 		$dbuah=mysql_fetch_array($qbuah);
 		$sisa_qty=$dbuah['qty']-$_POST['qty'];
@@ -46,7 +46,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 			//insert ke temp_beli_detail
 			$harga_total=$_POST['qty']*$dbuah['harga_barang'];
 			$input="INSERT INTO temp_jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
-			VALUES('JL-$inc', '$dbuah[barang_id]', '$_POST[pilih_barang]', '$dbuah[kategori]', '$_POST[qty]', '$dbuah[packing]', 
+			VALUES('JL-$inc', '$dbuah[barang_id]', '$dbuah[barang_nama]', '$dbuah[kategori]', '$_POST[qty]', '$dbuah[packing]', 
 			'$dbuah[harga_barang]', '$harga_total')";
 			mysql_query($input);
 			//update tabel stok
@@ -215,11 +215,11 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <td>
               <select name="pilih_barang" id="input" class="form-control">
               <?php
-			  	$stok="SELECT * FROM stok ORDER BY barang_nama ASC";
+			  	$stok="SELECT * FROM barang ORDER BY barang_nama ASC";
 				$qstok=mysql_query($stok);
 				while($dstok=mysql_fetch_array($qstok))
 				{
-					echo "<option>$dstok[barang_nama]</option>";
+					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]Kg)</option>";
 				}
 			  ?>
               </select>

@@ -9,7 +9,7 @@ $tgl_awal           = $_REQUEST['tgl_awal'];
 $tgl_akhir          = $_REQUEST['tgl_akhir'];
 
 $pesan="SELECT * FROM beli where true";
-$pesan.=" order by inc asc";    
+$pesan.=" order by inc desc";    
 $sqlnav=$pesan;
 $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 

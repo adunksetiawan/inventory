@@ -1,8 +1,9 @@
-﻿<?php error_reporting(0);?>
+<?php error_reporting(0);?>
 							<?php 
 session_start();
 require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
+
 
 function function_menu($menunya) {
     $id_menu=$menunya;
@@ -86,18 +87,18 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 					</a>
 					<!-- /COMPANY LOGO -->
 					<!-- TEAM STATUS FOR MOBILE -->
-					<div class="visible-xs">
+					<!--<div class="visible-xs">
 						<a href="#" class="team-status-toggle switcher btn dropdown-toggle">
 							<i class="fa fa-users"></i>
 						</a>
-					</div>
+					</div>-->
 					<!-- /TEAM STATUS FOR MOBILE -->
 					<!-- SIDEBAR COLLAPSE -->
-					<div id="sidebar-collapse" class="sidebar-collapse btn">
+					<!--<div id="sidebar-collapse" class="sidebar-collapse btn">
 						<i class="fa fa-bars" 
 							data-icon1="fa fa-bars" 
 							data-icon2="fa fa-bars" ></i>
-					</div>
+					</div>-->
 					<!-- /SIDEBAR COLLAPSE -->
 				</div>
 				<!-- NAVBAR LEFT -->
@@ -202,34 +203,34 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 				<!-- BEGIN TOP NAVIGATION MENU -->					
 				<ul class="nav navbar-nav pull-right">
 					<!-- BEGIN NOTIFICATION DROPDOWN -->	
-					<li class="dropdown" id="header-notification">
+					<!-- <li class="dropdown" id="header-notification">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<i class="fa fa-bell"></i>
 							<span class="badge">7</span>						
 						</a>
 						
-					</li>
+					</li> -->
 					<!-- END NOTIFICATION DROPDOWN -->
 					<!-- BEGIN INBOX DROPDOWN -->
-					<li class="dropdown" id="header-message">
+					<!-- <li class="dropdown" id="header-message">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-envelope"></i>
 						<span class="badge">3</span>
 						</a>
 						
-					</li>
+					</li> -->
 					<!-- END INBOX DROPDOWN -->
 					<!-- BEGIN TODO DROPDOWN -->
-					<li class="dropdown" id="header-tasks">
+					<!-- <li class="dropdown" id="header-tasks">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-tasks"></i>
 						<span class="badge">3</span>
 						</a>
 						
-					</li>
+					</li> -->
 					<!-- END TODO DROPDOWN -->
 					<!-- BEGIN USER LOGIN DROPDOWN -->
-					<li class="dropdown user" id="header-user">
+					<li class="dropdown user" id="header-user" style="float:right">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img alt="" src="img/avatars/ava1.png" />
 							<?php 
@@ -260,9 +261,9 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 					<div class="sidebar-menu nav-collapse">
 						<div class="divide-20"></div>
 						<!-- SEARCH BAR -->
-						<div id="search-bar">
+						<!--<div id="search-bar">
 							<input class="search" type="text" placeholder="Search"><i class="fa fa-search search-icon"></i>
-						</div>
+						</div>-->
 						<!-- /SEARCH BAR -->
 						
 						<!-- SIDEBAR QUICK-LAUNCH -->
@@ -366,7 +367,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 									<div class="clearfix">
 										<h3 class="content-title pull-left"><?=$halaman;?></h3>
 										<!-- DATE RANGE PICKER -->
-										<span class="date-range pull-right">
+										<!-- <span class="date-range pull-right">
 											<div class="btn-group">
 												<a class="js_update btn btn-default" href="#">Today</a>
 												<a class="js_update btn btn-default" href="#">Last 7 Days</a>
@@ -378,7 +379,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 													<i class="fa fa-angle-down"></i>
 												</a>
 											</div>
-										</span>
+										</span> -->
 										<!-- /DATE RANGE PICKER -->
 									</div>
 									<div class="description">Overview, Statistics and more</div>
@@ -403,7 +404,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
     
     <?php }
 
-	if (isset($_SESSION['level']) && isset($_SESSION['username'])){
+	if (isset($_SESSION['level']) && isset($_SESSION['username'])) {
 		require_once $hal.".php";
 	} else {
 		lompat_ke("form_login.php");
