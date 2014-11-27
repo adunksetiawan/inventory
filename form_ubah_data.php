@@ -73,13 +73,7 @@ require_once "library/fungsi_standar.php";
                 <input name="kg" type="text" id="input" class="form-control" size="5" value="<?=$data['kg']?>" maxlength="10" />
               </label>&nbsp;Kg</td>
           </tr>
-           <tr>
-            <td>Harga Satuan</td>
-            <td>:&nbsp;</td>
-            <td><label>
-              <input placeholder="Harga" name="harga_satuan" type="text" value="<?=$data['harga_satuan']?>" id="input" class="form-control" size="19" maxlength="70" />
-            </label></td>
-          </tr>
+        
           <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -93,6 +87,69 @@ require_once "library/fungsi_standar.php";
         </table>
 												</form>
 											</div>
+										</div>
+										<!-- /BASIC -->
+									</div>
+</div>
+<?php }	elseif($_GET['kode']=="kategori_barang_update"){
+		$pesan="SELECT * FROM barang_kategori WHERE id_kat='$_GET[id]'";
+		$query=mysql_query($pesan);
+		$data=mysql_fetch_array($query);
+	?>
+     <div class="row">
+<div class="col-lg-12">
+										<!-- BASIC -->
+										<div class="box border red">
+											<div class="box-title">
+												<h4><i class="fa fa-user"></i><?=$halaman?></h4>
+												<div class="tools hidden-xs">
+													<a href="#box-config" data-toggle="modal" class="config">
+														<i class="fa fa-cog"></i>
+													</a>
+													<a href="javascript:;" class="reload">
+														<i class="fa fa-refresh"></i>
+													</a>
+													<a href="javascript:;" class="collapse">
+														<i class="fa fa-chevron-up"></i>
+													</a>
+													<a href="javascript:;" class="remove">
+														<i class="fa fa-times"></i>
+													</a>
+												</div>
+											</div>
+											<div class="box-body big">
+        <table border=0 cellspacing=2 cellpadding=0 width="100%">
+          <tr>
+            <td>ID Kategori<input type="hidden" name="id_kat" id="supplier_id" value="<?=$data['id_kat']?>" /></td>
+            <td>:</td>
+            <td><?=$data['id_kat'];?></td>
+          </tr>
+          <tr>
+            <td>Kode Kategori</td>
+            <td>:</td>
+            <td><label>
+              <input name="kode_kat" readonly class="form-control" type="text" id="input" size="70" maxlength="70" value=<?=$data['kode_kat'];?> />
+            </label></td>
+          </tr>
+          <tr>
+            <td>Nama Kategori</td>
+            <td>:</td>
+            <td><label>
+              <input name="nm_kat" class="form-control" type="text" id="input" size="70" maxlength="100" value="<?=$data['nm_kat'];?>" />
+            </label></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td><label>
+              <input type="submit" name="SimpanKat" id="tombol" value="Simpan" class="btn btn-success" />
+            </label>
+              <label>
+                <input type="reset" name="BatalKat" id="tombol" value="Batal" class="btn btn-danger" />
+              </label></td>
+          </tr>
+        </table>
+        </div>
 										</div>
 										<!-- /BASIC -->
 									</div>

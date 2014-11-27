@@ -2,8 +2,8 @@
 session_start();
 require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
-$a="SELECT * FROM jual";
-$b="SELECT inc FROM jual ORDER BY inc DESC LIMIT 1";
+$a="SELECT * FROM distributor_jual";
+$b="SELECT inc FROM distributor_jual ORDER BY inc DESC LIMIT 1";
 $inc=penambahan($a, $b);
 
                             if($_REQUEST['kode']!="") { 
@@ -31,13 +31,13 @@ $inc=penambahan($a, $b);
 
 if (isset($_POST['run'])and($_POST['run']=="form2"))
 {
-	$cekQty="SELECT * FROM stok WHERE barang_id='$_POST[pilih_barang]'";
+	$cekQty="SELECT * FROM jual_detail as a, jual as b WHERE a.jual_id=b.jual_id and a.barang_id='$_POST[pilih_barang]' and b.pelanggan_nama='$_POST[pelanggan_nama]' order by b.inc desc limit 1";
 	$qcekQty=mysql_query($cekQty);
 	$dcekQty=mysql_fetch_array($qcekQty);
 	if (!empty($_POST['qty']))
 	{
 		//ambil dari stok
-		$buah="SELECT * FROM stok WHERE barang_id='$_POST[pilih_barang]'";
+		$buah="SELECT * FROM jual_detail as a, jual as b WHERE a.jual_id=b.jual_id and a.barang_id='$_POST[pilih_barang]' and b.pelanggan_nama='$_POST[pelanggan_nama]' order by b.inc desc limit 1";
 		$qbuah=mysql_query($buah);
 		$dbuah=mysql_fetch_array($qbuah);
 		$sisa_qty=$dbuah['qty']-$_POST['qty'];
@@ -45,12 +45,12 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 		{
 			//insert ke temp_beli_detail
 			$harga_total=$_POST['qty']*$dbuah['harga_barang'];
-			$input="INSERT INTO temp_jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
-			VALUES('JL-$inc', '$dbuah[barang_id]', '$dbuah[barang_nama]', '$dbuah[kategori]', '$_POST[qty]', '$dbuah[packing]', 
+			$input="INSERT INTO temp_distributor_jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
+			VALUES('PBL-$inc', '$dbuah[barang_id]', '$dbuah[barang_nama]', '$dbuah[kategori]', '$_POST[qty]', '$dbuah[packing]', 
 			'$dbuah[harga_barang]', '$harga_total')";
 			mysql_query($input);
 			//update tabel stok
-			$upstok="UPDATE stok SET qty='$sisa_qty' WHERE barang_id='$dbuah[barang_id]'";
+			$upstok="UPDATE jual_detail SET qty='$sisa_qty' WHERE barang_id='$dbuah[barang_id]'";
 			mysql_query($upstok);
 		}
 		else
@@ -90,12 +90,12 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
   <tr>
     <td>
       <form id="form1" name="form1" method="post" action="proses.php">
-            <input type="hidden" name="proses" id="proses" value="jual_insert" />
+            <input type="hidden" name="proses" id="proses" value="jualbeli_insert" />
           <table border="0" cellspacing="1" cellpadding="0" class="table table-hover">
             <tr><input name="inc" type="hidden" value="<?php echo "$inc"; ?>" />
               <td id="noborder">No. Transaksi</td>
               <td id="noborder">:</td>
-              <td id="noborder"><input name="jual_id" type="hidden" value="<?php echo "JL-$inc"; ?>" /><?php echo "JL-$inc"; ?></td>
+              <td id="noborder"><input name="jual_id" type="hidden" value="<?php echo "PBL-$inc"; ?>" /><?php echo "PBL-$inc"; ?></td>
             </tr>
             <tr>
               <td id="noborder">No. Nota</td>
@@ -114,17 +114,26 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <tr>
               <td id="noborder">Pembeli</td>
               <td id="noborder">:</td>
-              <td id="noborder"><select class="form-control" name="pelanggan_nama" id="input">
+              <td id="noborder"><!--<select class="form-control" name="pelanggan_nama" id="input">
                 <option>umum</option>
                 <?php
-                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
+                /*$pel="SELECT * FROM pelanggan ORDER BY inc ASC";
                 $qpel=mysql_query($pel);
                 while ($dtpel=mysql_fetch_array($qpel)){
               echo "
                 <option>$dtpel[pelanggan_nama]</option>";
-                }
+                }*/
                 ?>
-              </select></td>
+              </select>-->
+              <input type="text" class="form-control" name="pembeli_nama" id="input"/>
+              </td>
+            </tr>
+            <tr>
+              <td id="noborder">Distributor</td>
+              <td id="noborder">:</td>
+              <td id="noborder">
+                <input type="text" class="form-control" readonly name="dist_penjual" value="<?=$_POST[pelanggan_nama]?>" />
+              </td>
             </tr>
           </table>
         
@@ -138,11 +147,14 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <th id="namaField">Kategori</th>
             <th id="namaField">Packing</th>
             <th id="namaField">Qty</th>
+            <th id="namaField">Harga</th>
             <th id="namaField">Menu</th>
           </tr>
           </thead>
           <?php
-          $tmp="SELECT * FROM temp_jual_detail WHERE jual_id='JL-$inc'";
+          $tmp="SELECT * FROM temp_distributor_jual_detail WHERE jual_id='PBL-$inc'";
+          $sumtmp=mysql_query("SELECT SUM(harga_total) as totalnya FROM temp_distributor_jual_detail WHERE jual_id='PBL-$inc'");
+          $dtsum=mysql_fetch_array($sumtmp);
           $qtmp=mysql_query($tmp);
           while ($dtmp=mysql_fetch_array($qtmp))
           {
@@ -153,6 +165,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <td>$dtmp[kategori]</td>
             <td>$dtmp[packing]</td>
             <td>$dtmp[qty]</td>
+            <td>$dtmp[harga_barang]</td>
             <td><a href=proses.php?proses=hapus_item_jual&id=$dtmp[barang_id]><div id=tombol>hapus</div></a></td>
           </tr>";
           }
@@ -160,6 +173,20 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
         </table>
         <!--tabel pembayaran-->
         <table border="0" cellspacing="1" cellpadding="0" class="table table-hover">
+          <tr>
+            <td id="noborder">Total</td>
+            <td id="noborder">:</td>
+            <td id="noborder"><label>
+              <input type="text" class="form-control" placeholder="Total Harga" name="harga_total" value="<?=$dtsum['totalnya']?>" />
+            </label></td>
+          </tr>
+          <tr>
+            <td id="noborder">Total</td>
+            <td id="noborder">:</td>
+            <td id="noborder"><label>
+              <input type="text" class="form-control" placeholder="Jumlah bayar" name="jml_bayar" />
+            </label></td>
+          </tr>
           <tr>
             <td id="noborder">Tgl jatuh tempo</td>
             <td id="noborder">:</td>
@@ -184,6 +211,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
         <table border="0" cellspacing="1" cellpadding="0" class="table table-hover" width="100%">
           <tr>
             <td id="namaField">Pilih Barang</td>
+            <td id="namaField">Distributor</td>
             <td id="namaField">Jumlah</td>
             <td id="namaField">add</td>
           </tr>
@@ -200,6 +228,17 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 			  ?>
               </select>
             </td>
+            <td><select class="form-control" name="pelanggan_nama" id="input">
+                <option>umum</option>
+                <?php
+                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
+                $qpel=mysql_query($pel);
+                while ($dtpel=mysql_fetch_array($qpel)){
+              echo "
+                <option>$dtpel[pelanggan_nama]</option>";
+                }
+                ?>
+              </select></td>
             <td>
               <input name="qty" type="text" class="form-control" id="input" class="validate[required]" size="5" />
             </td>

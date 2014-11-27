@@ -8,7 +8,7 @@ $maxrow         = $_REQUEST['maxrow']?$_REQUEST['maxrow']:"25";
 $tgl_awal           = $_REQUEST['tgl_awal'];
 $tgl_akhir          = $_REQUEST['tgl_akhir'];
 
-$pesan="SELECT * FROM jual";
+$pesan="SELECT * FROM distributor_jual";
 $pesan.=" order by inc desc";    
 $sqlnav=$pesan;
 $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
@@ -55,23 +55,10 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
                     <div class="form-group" id="sandbox-container">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_awal" type="text" class="form-control" id="datepicker" placeholder="Tanggal awal">
                     </div>
+
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_akhir" type="text" class="form-control" id="datepicker1" placeholder="Tanggal akhir">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputEmail2">Distributor</label> 
-                        <select class="form-control" name="pelanggan_nama" id="input">
-                <option>Pilih Distributor</option>
-                <?php
-                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
-                $qpel=mysql_query($pel);
-                while ($dtpel=mysql_fetch_array($qpel)){
-              echo "
-                <option>$dtpel[pelanggan_nama]</option>";
-                }
-                ?>
-              </select>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
-                    </div>
+                    </div>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
                 </form>
             </div>
         </div><!-- /BASIC -->
@@ -97,7 +84,8 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <th id="namaField">No.Trans</th>
     <th id="namaField">No.Nota</th>
     <th id="namaField">Tgl. Trans</th>
-    <th id="namaField">Nama Distributor</th>
+    <th id="namaField">Nama Pembeli</th>
+    <th id="namaField">Distributor Penjual</th>
     <th id="namaField">Tanggal Jatuh Tempo</th>
   </tr>
   </thead>
@@ -115,11 +103,12 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 		?>
         <tbody>
   <tr bgcolor=<?php echo $warna; ?>>
-    <td><a href="#" onclick="javascript:wincal=window.open('jual_detail.php?id=<?php echo $row['jual_id']; ?>','Lihat Data','width=790,height=400,scrollbars=1');">
+    <td><a href="#" onclick="javascript:wincal=window.open('distributor_jual_detail.php?id=<?php echo $row['jual_id']; ?>','Lihat Data','width=790,height=400,scrollbars=1');">
     <?php echo $row['jual_id']; ?></a></td>
     <td><?php echo "$row[no_nota]"; ?></td>
     <td><?php echo "$row[tgl_jual]"; ?></td>
     <td><?php echo "$row[pelanggan_nama]"; ?></td>
+    <td><?php echo "$row[distributor_nama]"; ?></td>
     <td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>
   </tr>
   <?php } ?>

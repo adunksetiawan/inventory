@@ -72,8 +72,7 @@ require_once "library/fungsi_standar.php";
         <th id="namaField">Kategori</th>
         <th id="namaField">Qty</th>
         <th id="namaField">Packing</th>
-        <th id="namaField">Harga Barang</th>
-        <th id="namaField">Harga total</th>
+       
 											  </tr>
 											</thead>
                                             
@@ -90,8 +89,7 @@ require_once "library/fungsi_standar.php";
         <td><?php echo "$row[kategori]"; ?></td>
         <td><?php echo "$row[qty]"; ?></td>
         <td><?php echo "$row[packing]"; ?></td>
-        <td align="right"><?php echo digit($row['harga_barang']);?></td>
-        <td align="right"><?php echo digit($row['harga_total']); ?></td>
+        
 											  </tr>
 				  							<?php } ?>
                                               <tr>
@@ -107,30 +105,8 @@ require_once "library/fungsi_standar.php";
 				echo $dsumQty['totalQty'];
 			?>
         </td>
-        <td style="color:#FFF; background-color:#333; border:none;">&nbsp;</td>
-        <td style="color:#FFF; background-color:#333; border:none;" align="right">Total =</td>
-        <td style="color:#FFF; background-color:#333; border:none;" align="right">
-        	<?php
-				$jual="SELECT * FROM jual WHERE jual_id='$_GET[id]'";
-				$qjual=mysql_query($jual);
-				$djual=mysql_fetch_array($qjual);
-				echo "Rp ".digit($djual['total']);
-			?>
-        </td>
       </tr>
-      <tr>
-      	<td colspan="6" style="color:#FFF; background-color:#333; border:none;" align="right">Bayar =</td>
-        <td style="color:#FFF; background-color:#333; border:none;" align="right"><?php echo "Rp ".digit($djual['jml_bayar']); ?></td>
-      </tr>
-      <tr>
-      	<td colspan="6" style="color:#FFF; background-color:#333; border:none;" align="right">Piutang =</td>
-        <td style="color:#FFF; background-color:#333; border:none;" align="right">
-		<?php  
-		$piutang=$djual['total']-$djual['jml_bayar'];
-		echo "Rp ".digit($piutang);
-		?>
-        </td>
-      </tr>
+      
 											</tbody>
 										  </table>
 										  <!-- /COST TABLE -->
@@ -140,18 +116,11 @@ require_once "library/fungsi_standar.php";
 											  <div class='row'>
 												<div class='col-sm-12'>
 												  <div class='text-right font-400 font-14'>
-													<h2 class="amount">Total keseluruhan: <?php
-				$jual="SELECT * FROM jual WHERE jual_id='$_GET[id]'";
-				$qjual=mysql_query($jual);
-				$djual=mysql_fetch_array($qjual);
-				echo "Rp ".digit($djual['total']);
-			?></h2>
+													
 												  <div class='btn-group hidden-xs pull-right invoice-btn-group'>
 													  <a class="btn btn-lg btn-default" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
 												  </div>
-												  <div class='btn-group visible-xs pull-right invoice-btn-group'>
-													  <a class="btn btn-default" onclick="javascript:window.print();"><i class="fa fa-print"></i> Print</a>
-												  </div>
+												  
 												  </div>
 												  
 												</div>

@@ -90,7 +90,7 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 												<th>Nama barang</th>
 												<th>Kategori</th>
                                                 <th>Packing</th>
-                                                <th>Harga satuan</th>                                          
+                                                                                       
                                                 <?php if($_REQUEST['act']!="") {?>
                                                 <th colspan="2" align="center"><center>Aksi</center></th>
 											     <?php } ?>
@@ -115,7 +115,7 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <td><?php echo "$row1[barang_nama]"; ?></td>
           <td><?php echo "$row1[barang_kategori]"; ?></td>
           <td><?php echo "$row1[satuan]x$row1[kg]Kg";?></td>
-          <td><?php echo "$row1[harga_satuan]"; ?></td>
+         
           <?php if($_REQUEST['act']!="") { ?>
           <td align="center"><?php 
           if($_REQUEST['act']=="ubah") {

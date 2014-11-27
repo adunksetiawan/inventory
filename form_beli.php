@@ -110,16 +110,11 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
     				</select>
     				</td>
   				</tr>
-  				<tr>
-    				<td id="noborder">Ongkos Truk</td>
-    				<td id="noborder">:</td>
-    				<td id="noborder"><input class="form-control" name="ongkos" type="text" id="input" /></td>
-  				</tr>
 			</table>
             
             <table class="table table-hover">
               <tr>
-                <td id="noborder" colspan="8">Barang yang dibeli :</td>
+                <td id="noborder" colspan="8">Stok yang diinput :</td>
               </tr>
               <tr>
                 <th id="namaField">ID</th>
@@ -127,8 +122,6 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
                 <th id="namaField">Kategori</th>
                 <th id="namaField">Qty</th>
                 <th id="namaField">Packing</th>
-                <th id="namaField">Harga Satuan</th>
-                <th id="namaField">Harga Total</th>
                 <th>
 				<?php echo "<a href=?halaman=proses&proses=hapus_item_beli&status=all&id=BM-$inc><div id=tombol>Hapus Semua</div></a>"; ?>
                 </th>
@@ -145,20 +138,12 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
                 <td><?php echo $drinci['kategori']; ?></td>
                 <td><?php echo $drinci['qty']; ?></td>
                 <td><?php echo $drinci['packing']; ?></td>
-                <td align="right"><?php echo digit($drinci['harga_satuan']); ?></td>
-                <td align="right"><?php echo digit($drinci['harga_total']); ?></td>
                <td><?php echo "<a href=?halaman=proses&proses=hapus_item_beli&status=satu&id=$drinci[barang_id]><div id=tombol>hapus</div></a>"; ?></td>
               </tr>
               <?php } ?>
               <tr>
                 <td style="color:#FFF; background-color:#333; border:none" colspan="6" align="right">total :</td>
                 <td style="color:#FFF; background-color:#333; border:none" align="right">
-					<?php
-						$sum="SELECT SUM(harga_total)AS total FROM temp_beli_detail WHERE beli_id='BM-$inc'";
-						$qsum=mysql_query($sum);
-						$dsum=mysql_fetch_array($qsum);
-						echo digit($dsum['total']);
-					?>
                 </td>
                 <td style="color:#FFF; background-color:#333; border:none">&nbsp;</td>
               </tr>

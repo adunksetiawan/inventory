@@ -63,7 +63,7 @@ $url="";
 				insert($nama_tabel,$values);
 				break;
 			}
-            case "kategori_insert":
+        case "kategori_insert":
 			{
 				//$brgKode=$_POST['Barang_Kode'];
 				//$barangKode=str_ireplace(" ","",$brgKode);
@@ -179,21 +179,10 @@ $url="";
 			$qtmp=mysql_query($tmp);
 			while($dtmp=mysql_fetch_array($qtmp))
 			{
-				$ck=mysql_query("select * from jual as a, jual_detail as b where a.jual_id=b.jual_id and b.barang_id='$dtmp[barang_id]' and a.pelanggan_nama='$_POST[pelanggan_nama]' order by a.inc desc");
-				$rowck=mysql_num_rows($ck);
-				$dtck=mysql_fetch_array($ck);
-				if($rowck>0) {
-					$stokbaru=$dtck[qty]+$dtmp[qty];
-					$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
-				VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$stokbaru', 
-				'$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
-				mysql_query($detail);
-				} else {
-					$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
+				$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
 				VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$dtmp[qty]', 
 				'$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
 				mysql_query($detail);
-				}
 			}
 			//proses masuk ke piutang
 			$sisa_piutang=$_POST['total']-$_POST['jml_bayar'];
@@ -215,51 +204,6 @@ $url="";
 			mysql_query($hapus);
 			//halaman
 			$hal="jual_detail&id=$_POST[jual_id]";
-			break;
-		}
-
-		case "jualbeli_insert":
-		{
-			//insert ke tabel jual
-            
-            $pch2		             = explode("/", $_POST['tgl_jatuh_tempo']);
-            $tgl_jatuh_tempo		  = $pch2[1]."/".$pch2[0]."/".$pch2[2];
-            
-			$jual="INSERT INTO distributor_jual(inc, jual_id, no_nota, tgl_jual, username, pelanggan_nama, total, jml_bayar, tgl_jatuh_tempo, distributor_nama)
-			VALUES('$_POST[inc]', '$_POST[jual_id]', '$_POST[no_nota]', '$_POST[tgl_jual]', '$_POST[username]',
-			'$_POST[pembeli_nama]', '$_POST[harga_total]', '$_POST[jml_bayar]', '$tgl_jatuh_tempo', '$_POST[dist_penjual]')";
-			mysql_query($jual);
-			//select temp_jual_detail
-			$tmp="SELECT * FROM temp_distributor_jual_detail";
-			$qtmp=mysql_query($tmp);
-			while($dtmp=mysql_fetch_array($qtmp))
-			{
-
-				 $detail="INSERT INTO distributor_jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
-				VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$dtmp[qty]', 
-				'$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
-				mysql_query($detail);
-			}
-			//proses masuk ke piutang
-			$sisa_piutang=$_POST['harga_total']-$_POST['jml_bayar'];
-			if($sisa_piutang!=0)
-			{
-				//insert ke piutang
-				$piutang="INSERT INTO piutang_penjualan(jual_id, no_nota, tgl_jual, pelanggan_nama, piutang_awal, 
-				jml_bayar, piutang_sisa, tgl_jatuh_tempo, keterangan, distributor_nama)
-				VALUES('$_POST[jual_id]', '$_POST[no_nota]', '$_POST[tgl_jual]', '$_POST[pembeli_nama]', 		
-				'$sisa_piutang', '$_POST[jml_bayar]', '$sisa_piutang', '$tgl_jatuh_tempo', 'blm lunas', '$_POST[dist_penjual]')";
-				mysql_query($piutang);
-				//insert ke piutang_detail
-				$rinci="INSERT INTO piutang_penjualan_detail(jual_id, tgl_bayar, jml_bayar, sisa_bayar, inc)
-				VALUES('$_POST[jual_id]', '$_POST[tgl_jual]', '$_POST[jml_bayar]', '$sisa_piutang', '1')";
-				mysql_query($rinci);
-			}
-			//hapus data temp_jual_detail
-			$hapus="DELETE FROM temp_distributor_jual_detail WHERE jual_id='$_POST[jual_id]'";
-			mysql_query($hapus);
-			//halaman
-			$hal="distributor_jual_detail&id=$_POST[jual_id]";
 			break;
 		}
 		
@@ -337,15 +281,6 @@ $url="";
 				$hal="data_barang";
 				update($nama_tabel,$values,$kondisi);
 				break;
-			}
-        case "kategori_barang_update":
-			{
-				$nama_tabel="barang_kategori";
-				$values="nm_kat='$_POST[nm_kat]'";
-				$kondisi="id_kat='$_POST[id_kat]'";
-				$hal="data_kategori_barang";
-				update($nama_tabel,$values,$kondisi);
-				break;
 			}	
 		case "supplier_update":
 			{
@@ -397,14 +332,6 @@ switch($hapus){
 				$nama_tabel="barang";
 				$kondisi="inc='$_GET[id]'";
 				$hal="data_barang";
-				delete($nama_tabel,$kondisi);
-				break;
-			}
-    case "barang_kategori_delete":
-			{
-				$nama_tabel="barang_kategori";
-				$kondisi="id_kat='$_GET[id]'";
-				$hal="data_kategori_barang";
 				delete($nama_tabel,$kondisi);
 				break;
 			}

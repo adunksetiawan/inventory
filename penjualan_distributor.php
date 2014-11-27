@@ -55,23 +55,10 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
                     <div class="form-group" id="sandbox-container">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_awal" type="text" class="form-control" id="datepicker" placeholder="Tanggal awal">
                     </div>
+
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_akhir" type="text" class="form-control" id="datepicker1" placeholder="Tanggal akhir">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="exampleInputEmail2">Distributor</label> 
-                        <select class="form-control" name="pelanggan_nama" id="input">
-                <option>Pilih Distributor</option>
-                <?php
-                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
-                $qpel=mysql_query($pel);
-                while ($dtpel=mysql_fetch_array($qpel)){
-              echo "
-                <option>$dtpel[pelanggan_nama]</option>";
-                }
-                ?>
-              </select>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
-                    </div>
+                    </div>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
                 </form>
             </div>
         </div><!-- /BASIC -->

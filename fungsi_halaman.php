@@ -7,6 +7,8 @@
                                     switch ($code) {
                                         case "barang_insert" : $halaman="Input Produk";
                                         break;
+                                        case "kategori_insert" : $halaman="Input Kategori Produk";
+                                        break;
                                         case "supplier_insert" : $halaman="Input Data Supplier";
                                         break;
                                         case "pelanggan_insert" : $halaman="Input Data Distributor";
@@ -14,6 +16,8 @@
                                         case "barang_masuk" : $halaman="Barang Stokist";
                                         break;
                                         case "penjualan" : $halaman="Stokist Distributor";
+                                        break;
+                                        case "kategori_barang_update" : $halaman="Ubah Kategori Produk";
                                         break;
                                         case "" : $halaman="Beranda";
                                         break;
@@ -50,6 +54,12 @@
                                         case "form_menu" : $halaman=ucfirst($_GET['act'])." Tambah Menu";
                                         break;
                                         case "profil_user" : $halaman=ucfirst($_GET['act'])." Profil User";
+                                        break;
+                                        case "pelanggan" : $halaman=ucfirst($_GET['act'])." Stokist Pelanggan";
+                                        break;
+                                        case "form_pelanggan_jual" : $halaman=ucfirst($_GET['act'])." Input Stokist Pelanggan";
+                                        break;
+                                        case "data_kategori_barang" : $halaman=ucfirst($_GET['act'])." Data Kategori Produk";
                                         break;
                                         case "" : $halaman="Beranda";
                                         break;

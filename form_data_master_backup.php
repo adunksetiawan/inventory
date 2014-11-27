@@ -157,7 +157,13 @@ require_once "library/fungsi_standar.php";
                 <input name="kg" type="text" id="input" class="form-control" size="5" maxlength="10" />
               </label>&nbsp;Kg</td>
           </tr>
-          
+           <tr>
+            <td>Harga Satuan</td>
+            <td>:&nbsp;</td>
+            <td><label>
+              <input placeholder="Harga" name="harga_satuan" type="text" id="input" class="form-control" size="19" maxlength="70" />
+            </label></td>
+          </tr>
           <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -234,10 +240,8 @@ require_once "library/fungsi_standar.php";
 										</div>
 										<!-- /BASIC -->
 									</div>
-</div>
-<?php }
-//form data supplier
-	elseif($_GET['kode']=="supplier_insert"){
+</div>       
+	<?php } elseif($_GET['kode']=="supplier_insert"){
 		//pemanggilan fungsi penambahan
 		$a="SELECT * FROM supplier";
 		$b="SELECT inc FROM supplier ORDER BY inc DESC LIMIT 1";
