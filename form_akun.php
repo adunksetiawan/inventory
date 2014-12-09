@@ -14,6 +14,19 @@ td
 	border:none;
 }
 </style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+      $("#level").change(function() {
+          var level = $(this).val();
+          if(level=="distributor") {
+              $(".distributornya").show();
+          } else {
+              $(".distributornya").hide();
+          }
+      });
+  });
+</script>
 </head>
 
 <body>
@@ -67,9 +80,25 @@ td
     <td>Level</td>
     <td>:</td>
     <td><label>
-      <select name="level" id="input" class="form-control">
+      <select name="level" id="level" class="form-control">
         <option>admin</option>
         <option>user</option>
+        <option>distributor</option>
+      </select>
+    </label></td>
+  </tr>
+  <tr class="distributornya" style="display:none;">
+    <td>Distributor</td>
+    <td>:</td>
+    <td><label>
+      <select name="distributor" id="distributor" class="form-control">
+      <option value="0">Pilih Distributor</option>
+        <?php 
+        $dist=mysql_query("select * from pelanggan");
+        while($distributor=mysql_fetch_array($dist)) {
+        ?>
+        <option value="<?php echo $distributor['inc']?>"><?php echo $distributor['pelanggan_nama']?></option>
+        <?php } ?>
       </select>
     </label></td>
   </tr>

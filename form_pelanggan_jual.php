@@ -50,7 +50,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 			'$dbuah[harga_barang]', '$harga_total')";
 			mysql_query($input);
 			//update tabel stok
-			$upstok="UPDATE jual_detail SET qty='$sisa_qty' WHERE barang_id='$dbuah[barang_id]'";
+			$upstok="UPDATE jual_detail as a INNER JOIN jual AS b ON b.jual_id = a.jual_id SET qty='$sisa_qty' WHERE b.pelanggan_nama='$_POST[pelanggan_nama]' and a.barang_id='$dbuah[barang_id]'";
 			mysql_query($upstok);
 		}
 		else
@@ -62,6 +62,11 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 		}
 	}
 }
+
+$id_dist=cek_user($_SESSION['username']);
+
+$ck=mysql_fetch_array(mysql_query("select pelanggan_nama from pelanggan where inc='$id_dist'"));
+$pelnama=$ck['pelanggan_nama'];
 ?>
     
 <div class="row">
@@ -132,7 +137,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
               <td id="noborder">Distributor</td>
               <td id="noborder">:</td>
               <td id="noborder">
-                <input type="text" class="form-control" readonly name="dist_penjual" value="<?=$_POST[pelanggan_nama]?>" />
+                <input type="text" class="form-control" readonly name="dist_penjual" value="<?php echo $_POST[pelanggan_nama]?>" />
               </td>
             </tr>
           </table>
@@ -147,7 +152,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <th id="namaField">Kategori</th>
             <th id="namaField">Packing</th>
             <th id="namaField">Qty</th>
-            <th id="namaField">Harga</th>
+            <!--<th id="namaField">Harga</th>-->
             <th id="namaField">Menu</th>
           </tr>
           </thead>
@@ -164,16 +169,16 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <td>$dtmp[barang_nama]</td>
             <td>$dtmp[kategori]</td>
             <td>$dtmp[packing]</td>
-            <td>$dtmp[qty]</td>
-            <td>$dtmp[harga_barang]</td>
-            <td><a href=proses.php?proses=hapus_item_jual&id=$dtmp[barang_id]><div id=tombol>hapus</div></a></td>
+            <td>$dtmp[qty]</td>"; ?>
+            <!--<td>$dtmp[harga_barang]</td>-->
+            <?php echo "<td><a href=proses.php?proses=hapus_item_jual&id=$dtmp[barang_id]><div id=tombol>hapus</div></a></td>
           </tr>";
           }
           ?>
         </table>
         <!--tabel pembayaran-->
         <table border="0" cellspacing="1" cellpadding="0" class="table table-hover">
-          <tr>
+          <!--<tr>
             <td id="noborder">Total</td>
             <td id="noborder">:</td>
             <td id="noborder"><label>
@@ -193,7 +198,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
             <td id="noborder"><label>
               <input type="text" class="form-control" placeholder="Tgl jatuh tempo" name="tgl_jatuh_tempo" id="datepicker1" />
             </label></td>
-          </tr>
+          </tr>-->
           <tr>
             <td id="noborder">&nbsp;</td>
             <td id="noborder">&nbsp;</td>
@@ -223,15 +228,18 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 				$qstok=mysql_query($stok);
 				while($dstok=mysql_fetch_array($qstok))
 				{
-					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]Kg)</option>";
+					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]$dstok[ukuran])</option>";
 				}
 			  ?>
               </select>
             </td>
             <td><select class="form-control" name="pelanggan_nama" id="input">
-                <option>umum</option>
                 <?php
-                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
+                $pel="SELECT * FROM pelanggan where true";
+                if($pelnama!="") {
+                  $pel.=" and pelanggan_nama='$pelnama'";
+                }
+                $pel.=" ORDER BY inc ASC";
                 $qpel=mysql_query($pel);
                 while ($dtpel=mysql_fetch_array($qpel)){
               echo "

@@ -8,7 +8,16 @@ $maxrow         = $_REQUEST['maxrow']?$_REQUEST['maxrow']:"25";
 $tgl_awal           = $_REQUEST['tgl_awal'];
 $tgl_akhir          = $_REQUEST['tgl_akhir'];
 
-$pesan="SELECT * FROM jual";
+
+$id_dist=cek_user($_SESSION['username']);
+
+$ck=mysql_fetch_array(mysql_query("select pelanggan_nama from pelanggan where inc='$id_dist'"));
+$pelnama=$ck['pelanggan_nama'];
+
+$pesan="SELECT * FROM jual as a, jual_detail as b where a.jual_id=b.jual_id";
+if($pelnama!="") {
+    $pesan.=" and pelanggan_nama='$pelnama'";
+}
 $pesan.=" order by inc desc";    
 $sqlnav=$pesan;
 $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
@@ -63,7 +72,11 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
                         <select class="form-control" name="pelanggan_nama" id="input">
                 <option>Pilih Distributor</option>
                 <?php
-                $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
+                $pel="SELECT * FROM pelanggan where true";
+                if($pelnama!="") {
+                    $pel.=" and pelanggan_nama='$pelnama'";
+                }
+                $pel.=" ORDER BY inc ASC";
                 $qpel=mysql_query($pel);
                 while ($dtpel=mysql_fetch_array($qpel)){
               echo "
@@ -98,7 +111,11 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <th id="namaField">No.Nota</th>
     <th id="namaField">Tgl. Trans</th>
     <th id="namaField">Nama Distributor</th>
-    <th id="namaField">Tanggal Jatuh Tempo</th>
+    <th id="namaField">Barang ID</th>
+    <th id="namaField">Nama Barang</th>
+    <th id="namaField">Kategori</th>
+    <th id="namaField">Qty</th>
+    <th id="namaField">Packing</th>
   </tr>
   </thead>
   <?php 
@@ -120,11 +137,15 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <td><?php echo "$row[no_nota]"; ?></td>
     <td><?php echo "$row[tgl_jual]"; ?></td>
     <td><?php echo "$row[pelanggan_nama]"; ?></td>
-    <td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>
+    <td><?php echo "$row[barang_id]"; ?></td>
+    <td><?php echo "$row[barang_nama]"; ?></td>
+    <td><?php echo "$row[kategori]"; ?></td>
+    <td><?php echo "$row[qty]"; ?></td>
+    <td><?php echo "$row[packing]"; ?></td>
   </tr>
   <?php } ?>
   <tr>
-                            <td colspan="8" align="center"><?php _navpage($koneksi,$sqlnav,$maxrow,$page,"?halaman=penjualan&maxrow=$maxrow&status_absen=$status_absen&$start=$start&end=$end&show=penjualan.php");?></td>
+                            <td colspan="11" align="center"><?php _navpage($koneksi,$sqlnav,$maxrow,$page,"?halaman=penjualan&maxrow=$maxrow&status_absen=$status_absen&$start=$start&end=$end&show=penjualan.php");?></td>
                         </tr>
                         </tbody>
 </table>

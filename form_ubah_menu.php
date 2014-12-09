@@ -52,35 +52,35 @@ td
     <td>:</td>
     <td><label>
     <input name="id" type="hidden" value="<?php echo $dmenu['id']; ?>" />
-      <input class="form-control" placeholder="ID Menu" readonly type="text" name="id_menu" id="input" value="<?=$dmenu['id_menu']?>" />
+      <input class="form-control" placeholder="ID Menu" readonly type="text" name="id_menu" id="input" value="<?php echo      $dmenu['id_menu']?>" />
     </label></td>
   </tr>
   <tr>
     <td>ID Menu Tree</td>
     <td>:</td>
     <td><label>
-      <input type="text" name="id_menu_tree" readonly id="input" class="form-control" placeholder="ID Menu Tree" value="<?=$dmenu['id_menu_tree']?>" />
+      <input type="text" name="id_menu_tree" readonly id="input" class="form-control" placeholder="ID Menu Tree" value="<?php echo      $dmenu['id_menu_tree']?>" />
     </label></td>
   </tr>
   <tr>
     <td>Nama</td>
     <td>:</td>
     <td><label>
-      <input type="text" name="nm_menu" id="input" class="form-control" placeholder="Nama Menu" value="<?=$dmenu['nm_menu']?>" />
+      <input type="text" name="nm_menu" id="input" class="form-control" placeholder="Nama Menu" value="<?php echo      $dmenu['nm_menu']?>" />
     </label></td>
   </tr>
   <tr>
     <td>Url</td>
     <td>:</td>
     <td><label>
-      <input type="text" name="url" id="input" class="form-control" placeholder="URL" style="width: 280px;" value="<?=$dmenu['url']?>" />
+      <input type="text" name="url" id="input" class="form-control" placeholder="URL" style="width: 280px;" value="<?php echo      $dmenu['url']?>" />
     </label></td>
   </tr>
   <tr>
     <td>Custom class</td>
     <td>:</td>
     <td><label>
-      <input type="text" name="custom_class" id="input" class="form-control" placeholder="Custom class" value="<?=$dmenu['custom_class']?>" />
+      <input type="text" name="custom_class" id="input" class="form-control" placeholder="Custom class" value="<?php echo      $dmenu['custom_class']?>" />
     </label></td>
   </tr>
   <tr>

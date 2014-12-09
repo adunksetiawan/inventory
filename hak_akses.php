@@ -34,7 +34,7 @@ $(document).ready(function() {
         
             var id_menu     = $(this).val();
         
-            var url='proses_akses.php?act=add&uid=<?=$_REQUEST['id']?>&id_menu='+id_menu;
+            var url='proses_akses.php?act=add&uid=<?php echo      $_REQUEST['id']?>&id_menu='+id_menu;
         
             $.ajax({
                 url:url,
@@ -45,7 +45,7 @@ $(document).ready(function() {
         } else {
             var id_menu     = $(this).val();
         
-            var url='proses_akses.php?act=del&uid=<?=$_REQUEST['id']?>&id_menu='+id_menu;
+            var url='proses_akses.php?act=del&uid=<?php echo      $_REQUEST['id']?>&id_menu='+id_menu;
         
             $.ajax({
                 url:url,
@@ -63,7 +63,7 @@ $(document).ready(function() {
        
        if(menus!="") { 
        
-       var url='proses_akses.php?act=add&uid=<?=$_REQUEST['id']?>&id_menu='+menus;
+       var url='proses_akses.php?act=add&uid=<?php echo      $_REQUEST['id']?>&id_menu='+menus;
         
             $.ajax({
                 url:url,
@@ -104,16 +104,16 @@ $(document).ready(function() {
                                           <div class="form-group">
 											 <label class="col-md-4 control-label">User : </label> 
 											 <div class="col-md-4"> 
-                                                    <input type="text" readonly class="form-control" placeholder="User" value="<?=$dt['nama']?>">
-                                                    <input type="hidden" value="<?=$_REQUEST['id'];?>" name="uid" />
-                                                    <input type="hidden" value="<?=$count;?>" name="id" />  
+                                                    <input type="text" readonly class="form-control" placeholder="User" value="<?php echo      $dt['nama']?>">
+                                                    <input type="hidden" value="<?php echo      $_REQUEST['id'];?>" name="uid" />
+                                                    <input type="hidden" value="<?php echo      $count;?>" name="id" />  
                                              </div>
 										  </div>
 										  <div class="form-group">
 											 <label class="col-md-4 control-label">Menu : </label> 
 											 <div class="col-md-8"> 
                                              
-												 <!--<label class="checkbox"> <input <?=$checked;?> type="checkbox" class="uniform" id="<?=$no++;?>" name="menus" value="<?=$dtmenu['id_menu']."-".$dtmenu['id_menu_tree']?>"><?=$dtmenu['nm_menu']?></label>-->
+												 <!--<label class="checkbox"> <input <?php echo      $checked;?> type="checkbox" class="uniform" id="<?php echo      $no++;?>" name="menus" value="<?php echo      $dtmenu['id_menu']."-".$dtmenu['id_menu_tree']?>"><?php echo      $dtmenu['nm_menu']?></label>-->
                                                  <select name="menus" id="menus" class="form-control" style="width: 200px;">
                                                  <option value="">Pilih hak akses</option>
                                                  <?php 
@@ -131,7 +131,7 @@ $(document).ready(function() {
                                              }
                                              
                                              ?>
-                                                    <option value="<?=$dtmenu['id_menu']."-".$dtmenu['id_menu_tree']?>"><?=$dtmenu['nm_menu']?></option>
+                                                    <option value="<?php echo      $dtmenu['id_menu']."-".$dtmenu['id_menu_tree']?>"><?php echo      $dtmenu['nm_menu']?></option>
                                                     
                                              <?php } ?>
                                                  </select> 
@@ -151,7 +151,7 @@ $(document).ready(function() {
 										<!-- BASIC -->
 										<div class="box border red">
 											<div class="box-title">
-												<h4><i class="fa fa-align-justify"></i>Hak akses untuk user : <?=$dt['nama']?></h4>
+												<h4><i class="fa fa-align-justify"></i>Hak akses untuk user : <?php echo      $dt['nama']?></h4>
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
 														<i class="fa fa-cog"></i>
@@ -191,7 +191,7 @@ $(document).ready(function() {
 	</td>
 	<td align=center>";
 	?>
-	<a href="proses_akses.php?act=del&uid=<?=$_REQUEST['id']?>&id_menu=<?=$dakun['id_menu']."-".$dakun['id_menu_tree'];?>" 
+	<a href="proses_akses.php?act=del&uid=<?php echo      $_REQUEST['id']?>&id_menu=<?php echo      $dakun['id_menu']."-".$dakun['id_menu_tree'];?>" 
 		onclick="return confirm('Apakah Anda akan menghapus data akun ini ?')" class="btn btn-danger">Hapus hak akses</a>
        
 	<?php 

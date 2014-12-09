@@ -115,7 +115,6 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
               <td id="noborder">Pembeli</td>
               <td id="noborder">:</td>
               <td id="noborder"><select class="form-control" name="pelanggan_nama" id="input">
-                <option>umum</option>
                 <?php
                 $pel="SELECT * FROM pelanggan ORDER BY inc ASC";
                 $qpel=mysql_query($pel);
@@ -160,13 +159,13 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
         </table>
         <!--tabel pembayaran-->
         <table border="0" cellspacing="1" cellpadding="0" class="table table-hover">
-          <tr>
+          <!--<tr>
             <td id="noborder">Tgl jatuh tempo</td>
             <td id="noborder">:</td>
             <td id="noborder"><label>
               <input type="text" class="form-control" placeholder="Tgl jatuh tempo" name="tgl_jatuh_tempo" id="datepicker1" />
             </label></td>
-          </tr>
+          </tr>-->
           <tr>
             <td id="noborder">&nbsp;</td>
             <td id="noborder">&nbsp;</td>
@@ -195,7 +194,7 @@ if (isset($_POST['run'])and($_POST['run']=="form2"))
 				$qstok=mysql_query($stok);
 				while($dstok=mysql_fetch_array($qstok))
 				{
-					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]Kg)</option>";
+					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]$dstok[ukuran])</option>";
 				}
 			  ?>
               </select>

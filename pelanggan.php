@@ -8,8 +8,16 @@ $maxrow         = $_REQUEST['maxrow']?$_REQUEST['maxrow']:"25";
 $tgl_awal           = $_REQUEST['tgl_awal'];
 $tgl_akhir          = $_REQUEST['tgl_akhir'];
 
-$pesan="SELECT * FROM distributor_jual";
-$pesan.=" order by inc desc";    
+$id_dist=cek_user($_SESSION['username']);
+
+$ck=mysql_fetch_array(mysql_query("select pelanggan_nama from pelanggan where inc='$id_dist'"));
+$pelnama=$ck['pelanggan_nama'];
+
+$pesan="SELECT * FROM distributor_jual as a, distributor_jual_detail as b where a.jual_id=b.jual_id";
+if($pelnama!="") {
+    $pesan.=" and distributor_nama='$pelnama'";
+}
+$pesan.=" order by a.inc desc";    
 $sqlnav=$pesan;
 $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 
@@ -51,14 +59,35 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
             </div>
 
             <div class="box-body big">
-                <form class="form-inline" role="form" method="post" action="index.php?halaman=jual_cari">
+                <form class="form-inline" role="form" method="post" action="index.php?halaman=distributor_jual_cari">
                     <div class="form-group" id="sandbox-container">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_awal" type="text" class="form-control" id="datepicker" placeholder="Tanggal awal">
                     </div>
 
                     <div class="form-group">
                         <label class="sr-only" for="exampleInputEmail2">Email address</label> <input name="tgl_akhir" type="text" class="form-control" id="datepicker1" placeholder="Tanggal akhir">
-                    </div>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Pembeli</label> <input name="pembeli_nama" type="text" class="form-control" placeholder="Nama Pembeli">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Distributor</label> 
+                        <select class="form-control" name="distributor_nama" id="input">
+                <option>Pilih Distributor</option>
+                <?php
+                $pel="SELECT * FROM pelanggan where true";
+                if($pelnama!="") {
+                    $pel.=" and pelanggan_nama='$pelnama'";
+                }
+                $pel.=" ORDER BY inc ASC";
+                $qpel=mysql_query($pel);
+                while ($dtpel=mysql_fetch_array($qpel)){
+              echo "
+                <option>$dtpel[pelanggan_nama]</option>";
+                }
+                ?>
+              </select>&nbsp;<button name="tampil" type="submit" value="Cari" class="btn btn-inverse">Cari</button>
+                    </div>
                 </form>
             </div>
         </div><!-- /BASIC -->
@@ -86,7 +115,8 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <th id="namaField">Tgl. Trans</th>
     <th id="namaField">Nama Pembeli</th>
     <th id="namaField">Distributor Penjual</th>
-    <th id="namaField">Tanggal Jatuh Tempo</th>
+    <th id="namaField">Produk & Jumlah Penjualan</th>
+    <!--<th id="namaField">Tanggal Jatuh Tempo</th>-->
   </tr>
   </thead>
   <?php 
@@ -109,7 +139,8 @@ $pesan.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
     <td><?php echo "$row[tgl_jual]"; ?></td>
     <td><?php echo "$row[pelanggan_nama]"; ?></td>
     <td><?php echo "$row[distributor_nama]"; ?></td>
-    <td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>
+    <!--<td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>-->
+    <td><?php echo $row['barang_nama'].", ".$row['packing'].", ".$row['qty']; ?></td>
   </tr>
   <?php } ?>
   <tr>

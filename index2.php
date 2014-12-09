@@ -1,41 +1,97 @@
 <!-- DASHBOARD CONTENT -->
+						<!--<div class="row">
+							<div class="col-md-6">
+		<?php
+
+		/*$kat=mysql_query("select * from barang_kategori");
+		while($dtkat=mysql_fetch_array($kat)) {
+
+			echo $chart="SELECT * FROM  `distributor_jual` as a, distributor_jual_detail as b WHERE a.jual_id=b.jual_id and kategori='$dtkat[nm_kat]'";
+			$query_pria=mysql_query($chart);
+
+			// kita itung jumlah baris yang ada dari hasil query diatas
+			$totalPria   = mysql_num_rows($query_pria);
+		
+		}*/
+		?>
+		<script class="code" type="text/javascript">
+		$(document).ready(function(){
+			// kita masukkan jumlah total ditas kemari
+		    plot1 = $.jqplot('pie', [[['WANITA',<?php echo $totalPria; ?>],['PRIA', <?php echo $totalPria; ?>],['WARIA',<?php echo $totalPria; ?>]]], {
+		        gridPadding: {top:0, bottom:38, left:0, right:0},
+		      seriesDefaults:{renderer:$.jqplot.PieRenderer, trendline:{show:false}, rendererOptions: { padding: 20, showDataLabels: true}},
+		                  legend:{
+		                      show:true, 
+		                      placement: 'outside', 
+		                      rendererOptions: {
+		                          numberRows: 1
+		                      }, 
+		                      location:'s',
+		                      marginTop: '15px'
+		                  }       
+		    });
+		});
+		</script>
+		<div id="pie" style="margin-top:20px; margin-left:20px; width:400px; height:400px;"></div>
+							</div>
+						</div>-->
+
+<?php 
+
+$id_dist=cek_user($_SESSION['username']);
+
+$qryss="select pelanggan_nama from pelanggan where inc='$id_dist'";
+$ck=mysql_fetch_array(mysql_query($qryss));
+$pelnama=$ck['pelanggan_nama'];
+
+?>
+						
 						<div class="row">
 							<!-- COLUMN 1 -->
 							<div class="col-md-6">
 								<div class="row">
+								<?php 
+									$dt=mysql_query("select * from barang_kategori");
+									$jml=mysql_num_rows($dt);
+									while($brg=mysql_fetch_array($dt)) {
+									
+									if($jml>=3) {
+										$row="5";
+									} else {
+										$row="4";
+									}
+
+									$qrys="select sum(qty) as jumlah from distributor_jual_detail as b, distributor_jual as a where a.jual_id=b.jual_id and kategori='$brg[nm_kat]'";
+									if($pelnama!="") {
+										$qrys.=" and distributor_nama='$pelnama'";
+									}
+									$dtjual=mysql_query($qrys);
+									$hsl=mysql_fetch_array($dtjual);
+								?>
 								  <div class="col-lg-6">
 									 <div class="dashbox panel panel-default">
 										<div class="panel-body">
 										   <div class="panel-left red">
-												<i class="fa fa-instagram fa-3x"></i>
+												<i class="fa fa-archive fa-3x"></i>
+												<span style="color:#000;">
+												
+										   		</span>
 										   </div>
 										   <div class="panel-right">
-												<div class="number">6718</div>
-												<div class="title">Likes</div>
+												<div class="number"><?php if($hsl['jumlah']<1) { echo "0"; } else { echo $hsl['jumlah']; } ?></div>
+												<div class="title"><?php echo $brg['nm_kat']; ?></div>
+												<?php if($hsl['jumlah']<1) { echo ""; } else { ?>
 												<span class="label label-success">
-													26% <i class="fa fa-arrow-up"></i>
+													Terjual <i class="fa fa-arrow-up"></i>
 												</span>
+												<?php } ?>
 										   </div>
 										</div>
 									 </div>
 								  </div>
-								  <div class="col-lg-6">
-									 <div class="dashbox panel panel-default">
-										<div class="panel-body">
-										   <div class="panel-left blue">
-												<i class="fa fa-twitter fa-3x"></i>
-										   </div>
-										   <div class="panel-right">
-												<div class="number">2724</div>
-												<div class="title">Followers</div>
-												<span class="label label-warning">
-													5% <i class="fa fa-arrow-down"></i>
-												</span>
-										   </div>
-										</div>
-									 </div>
-								  </div>
+								<?php } ?>
 								</div>
+									
 								<div class="row">
 									<div class="col-md-12">
 										<div class="quick-pie panel panel-default">
@@ -67,7 +123,7 @@
 							
 							<!-- COLUMN 2 -->
 							<div class="col-md-6">
-								<div class="box solid grey">
+								<!--<div class="box solid grey">
 									<div class="box-title">
 										<h4><i class="fa fa-dollar"></i>Revenue</h4>
 										<div class="tools">
@@ -91,7 +147,64 @@
 									<div class="box-body">
 										<div id="chart-revenue" style="height:240px"></div>
 									</div>
-								</div>
+								</div>-->
+									<div class="box border orange">
+									<div class="box-title">
+										<h4><i class="fa fa-archive"></i>Stok Produk</h4>
+										<div class="tools">
+											<a href="#box-config" data-toggle="modal" class="config">
+												<i class="fa fa-cog"></i>
+											</a>
+											<a href="javascript:;" class="reload">
+												<i class="fa fa-refresh"></i>
+											</a>
+											<a href="javascript:;" class="collapse">
+												<i class="fa fa-chevron-up"></i>
+											</a>
+											<a href="javascript:;" class="remove">
+												<i class="fa fa-times"></i>
+											</a>
+										</div>
+									</div>
+									<div class="box-body">
+										<table class="table table-hover">
+											<thead>
+											  <tr>
+												<th>#</th>
+												<th>Nama Barang</th>
+												<th>Packing</th>
+												<th>Qty sisa</th>
+											  </tr>
+											</thead>
+											<tbody>
+											<?php 
+											//echo $pelnama; 
+											$dt=mysql_query("select * from barang_kategori");
+											$jml=mysql_num_rows($dt);
+
+											$no=1;
+											while($brg=mysql_fetch_array($dt)) {
+
+											$dtss="select barang_nama, packing, sum(qty) as totalqty from jual as a, jual_detail as b where a.jual_id=b.jual_id and kategori='$brg[nm_kat]' ";
+											if($pelnama!="") {
+												$dtss.=" and pelanggan_nama='$pelnama'";
+											}
+											$dtss.=" group by barang_nama";
+											
+											$rsdt=mysql_query($dtss);
+											$dtn=mysql_fetch_array($rsdt);
+											?>
+											  <tr>
+												<td><?php echo $no++; ?></td>
+												<td><?php echo $dtn['barang_nama']; ?></td>
+												<td><?php echo $dtn['packing']; ?></td>
+												<td><?php echo $dtn['totalqty']; ?></td>
+											  </tr>
+											<?php } ?>
+											</tbody>
+										  </table>
+									</div>
+									</div>
 							</div>
 							<!-- /COLUMN 2 -->
 						</div>

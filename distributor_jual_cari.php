@@ -2,7 +2,8 @@
 
 $pch1		= explode("/", $_POST['tgl_awal']);
 $pch2		= explode("/", $_POST['tgl_akhir']);
-$nm_pelanggan	= $_POST['pelanggan_nama'];
+$distributor	= $_POST['distributor_nama'];
+$pembeli		= $_POST['pembeli_nama'];
 $tgl_awal		= $pch1[1]."/".$pch1[0]."/".$pch1[2];
 $tgl_akhir		= $pch2[1]."/".$pch2[0]."/".$pch2[2];
 
@@ -35,17 +36,39 @@ $tgl_akhir		= $pch2[1]."/".$pch2[0]."/".$pch2[2];
     <th id="namaField">No.Nota</th>
     <th id="namaField">Tgl. Trans</th>
     <th id="namaField">Nama Pembeli</th>
-    <th id="namaField">Total Harga</th>
+    <!--<th id="namaField">Total Harga</th>
     <th id="namaField">Jumlah Bayar</th>
     <th id="namaField">Piutang</th>
-    <th id="namaField">Tanggal Jatuh Tempo</th>
+    <th id="namaField">Tanggal Jatuh Tempo</th>-->
   </tr>
   </thead>
   <?php 
   		$total_piutang=0;
-  		$pesan="SELECT * FROM jual WHERE tgl_jual BETWEEN '$tgl_awal' AND '$tgl_akhir' and pelanggan_nama='$nm_pelanggan' ORDER BY jual_id DESC";
-		$sum_jml_bayar="SELECT SUM(jml_bayar) AS total_jml_bayar FROM jual WHERE tgl_jual BETWEEN '$tgl_awal' 
-		AND '$tgl_akhir' and pelanggan_nama='$nm_pelanggan' ORDER BY jual_id DESC";
+  		$pesan="SELECT * FROM distributor_jual WHERE TRUE"; 
+  		if($tgl_awal) {
+			$pesan.=" AND tgl_jual>='".$tgl_awal."'";
+		}
+		if($tgl_akhir) {
+			$pesan.=" AND tgl_jual<='".$tgl_akhir."'";
+		}
+  		//tgl_jual BETWEEN '$tgl_awal' AND '$tgl_akhir'"; 
+  		if($pembeli!="") {
+  			$pesan.=" and pelanggan_nama like '$pembeli%'";
+  		}
+  		if($distributor!="") {
+  			$pesan.=" and distributor_nama='$distributor'"; 
+		}
+		$pesan.=" ORDER BY jual_id DESC";
+
+		$sum_jml_bayar="SELECT SUM(jml_bayar) AS total_jml_bayar FROM distributor_jual WHERE tgl_jual BETWEEN '$tgl_awal'
+		AND '$tgl_akhir'";
+		if($pembeli!="") {
+  			$sum_jml_bayar.=" and pelanggan_nama like '$pembeli%'";
+  		}
+  		if($distributor!="") {
+  			$sum_jml_bayar.=" and distributor_nama='$distributor'"; 
+		} 
+		$sum_jml_bayar.=" ORDER BY jual_id DESC";
 		$query=mysql_query($pesan);
 		
 		while($row=mysql_fetch_array($query)){
@@ -64,19 +87,26 @@ $tgl_akhir		= $pch2[1]."/".$pch2[0]."/".$pch2[2];
     <td><?php echo "$row[no_nota]"; ?></td>
     <td><?php echo "$row[tgl_jual]"; ?></td>
     <td><?php echo "$row[pelanggan_nama]"; ?></td>    
-    <td align="right"><?php echo digit($row['total']); ?></td>
+    <!--<td align="right"><?php echo digit($row['total']); ?></td>
     <td align="right"><?php echo digit($row['jml_bayar']); ?></td>
     <td align="right"><?php echo digit($piutang); ?></td>
-    <td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>
+    <td><?php echo "$row[tgl_jatuh_tempo]"; ?></td>-->
   </tr>
   <?php } 
 
-	$sum2="SELECT SUM(total) AS ttotal FROM jual WHERE tgl_jual BETWEEN '$tgl_awal' 
-		  AND '$tgl_akhir' and pelanggan_nama='$nm_pelanggan' ORDER BY jual_id DESC";
+	$sum2="SELECT SUM(total) AS ttotal FROM distributor_jual WHERE tgl_jual BETWEEN '$tgl_awal' 
+		  AND '$tgl_akhir'";
+	if($pembeli!="") {
+  			$sum2.=" and pelanggan_nama like '$pembeli%'";
+  		}
+  	if($distributor!="") {
+  			$sum2.=" and distributor_nama='$distributor'"; 
+	} 	  
+	$sum2.=" ORDER BY jual_id DESC";
 	$qsum2=mysql_query($sum2);
 	$dsum2=mysql_fetch_array($qsum2);
   ?>
-  <tr>
+  <!--<tr>
     <td colspan="4" align="right" style="color:#FFF; border:none; background-color:#333">Total =</td>
     <td align="right" style="color:#FFF; border:none; background-color:#333"><?php echo "Rp ". digit($dsum2['ttotal']); ?></td>
     <td align="right" style="color:#FFF; border:none; background-color:#333">
@@ -86,7 +116,7 @@ $tgl_akhir		= $pch2[1]."/".$pch2[0]."/".$pch2[2];
 	?></td>
     <td align="right" style="color:#FFF; border:none; background-color:#333"><?php echo "Rp ". digit($total_piutang); ?></td>
     <td align="right" style="color:#FFF; border:none; background-color:#333"></td>
-  </tr>
+  </tr>-->
 </table>
 </div>
 								</div>

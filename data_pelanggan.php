@@ -69,7 +69,7 @@ $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 								<!-- BOX -->
 								<div class="box border red">
 									<div class="box-title">
-										<h4><i class="fa fa-users"></i><?=$halaman?></h4>
+										<h4><i class="fa fa-users"></i><?php echo      $halaman?></h4>
 										<div class="tools">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>
@@ -116,7 +116,7 @@ $qtmpil_pel.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 			}
 		?>
         <tr bgcolor=<?php echo $warna; ?>>
-          <td><?=$no++;?></td>
+          <td><?php echo      $no++;?></td>
           <td><?php echo "$row3[pelanggan_id]"; ?></td>
           <td><?php echo "$row3[pelanggan_nama]"; ?></td>
           <td><?php echo "$row3[pelanggan_alamat]"; ?></td>

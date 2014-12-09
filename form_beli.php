@@ -39,7 +39,7 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
 		//insert ke temp_beli_detail
 		$harga_total=$dbuah['satuan']*$dbuah['kg']*$dbuah['harga_satuan'];
 		$input="INSERT INTO temp_beli_detail(beli_id, barang_id, barang_nama, kategori, qty, packing, harga_satuan, harga_total)
-		VALUES('BM-$inc', '$dbuah[inc]', '$dbuah[barang_nama]', '$dbuah[barang_kategori]', '$_POST[qty]', '$dbuah[satuan]x$dbuah[kg]kg', '$dbuah[harga_satuan]', '$harga_total')";
+		VALUES('BM-$inc', '$dbuah[inc]', '$dbuah[barang_nama]', '$dbuah[barang_kategori]', '$_POST[qty]', '$dbuah[satuan]x$dbuah[kg]$dbuah[ukuran]', '$dbuah[harga_satuan]', '$harga_total')";
 		mysql_query($input);
 	}
 }
@@ -175,7 +175,7 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
 				$qstok=mysql_query($stok);
 				while($dstok=mysql_fetch_array($qstok))
 				{
-					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]Kg)</option>";
+					echo "<option value='$dstok[inc]'>$dstok[barang_nama] ($dstok[satuan]x$dstok[kg]$dstok[ukuran])</option>";
 				}
 			  ?>
   			      </select>

@@ -14,6 +14,28 @@ td
 	border:none;
 }
 </style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    var level2 = $("#level").val();
+    if(level2=="distributor") {
+      $(".distributornya").show();
+    } else {
+      $(".distributornya").hide();      
+    }
+
+
+      $("#level").change(function() {
+          var level = $(this).val();
+          if(level=="distributor") {
+              $(".distributornya").show();
+          } else {
+              $(".distributornya").hide();
+          }
+      });
+  });
+</script>
 </head>
 
 <body>
@@ -72,9 +94,25 @@ td
     <td>level</td>
     <td>:</td>
     <td><label>
-      <select name="level" id="input" class="form-control">
-        <option>admin</option>
-        <option>user</option>
+      <select name="level" id="level" class="form-control">
+        <option value="<?php echo $dakun['level']; ?>" <?php if($dakun['level']=="admin") { echo "selected"; } else { echo ""; } ?>>admin</option>
+        <option value="<?php echo $dakun['level']; ?>" <?php if($dakun['level']=="user") { echo "selected"; } else { echo ""; } ?>>user</option>
+        <option value="<?php echo $dakun['level']; ?>" <?php if($dakun['level']=="distributor") { echo "selected"; } else { echo ""; } ?>>distributor</option>
+      </select>
+    </label></td>
+  </tr>
+  <tr class="distributornya" style="display:none;">
+    <td>Distributor</td>
+    <td>:</td>
+    <td><label>
+      <select name="distributor" id="distributor" class="form-control">
+      <option value="0">Pilih distributor</option>
+        <?php 
+        $dist=mysql_query("select * from pelanggan");
+        while($distributor=mysql_fetch_array($dist)) {
+        ?>
+        <option value="<?php echo $distributor['inc']?>" <?php if($distributor['inc']==$dakun['id_distributor']) { echo "selected"; } else { echo ""; } ?>><?php echo $distributor['pelanggan_nama']?></option>
+        <?php } ?>
       </select>
     </label></td>
   </tr>

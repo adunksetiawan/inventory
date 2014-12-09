@@ -44,7 +44,14 @@ $url="";
 			$nama_tabel="account";
 			$username=md5($_POST["username"]);
 			$password=md5($_POST["password"]);
-			$values="'$username', '$password', '$_POST[nama]', '$_POST[level]'";
+			if($_POST["distributor"]=="") {
+				$dist="0";
+			} else {
+				$dist=$_POST[distributor];
+			}
+
+
+			$values="'$username', '$password', '$_POST[nama]', '$_POST[level]', '$dist'";
 			$hal="data_akun";
 			insert($nama_tabel,$values);
 			break;
@@ -58,7 +65,7 @@ $url="";
                 $ckat=mysql_query("select nm_kat from barang_kategori where kode_kat='$_POST[kategori]'");
                 $dtkat=mysql_fetch_array($ckat);
                 
-				$values="'$_POST[inc]', '$barangKode', '$_POST[nmBarang]', '$dtkat[nm_kat]', '$_POST[satuan]', '$_POST[kg]', '$_POST[harga_satuan]'";
+				$values="'$_POST[inc]', '$barangKode', '$_POST[nmBarang]', '$dtkat[nm_kat]', '$_POST[satuan]', '$_POST[kg]', '$_POST[hrgBarang]', '$_POST[ukuran]'";
 				$hal="data_barang";
 				insert($nama_tabel,$values);
 				break;
@@ -170,10 +177,10 @@ $url="";
             $pch2		             = explode("/", $_POST['tgl_jatuh_tempo']);
             $tgl_jatuh_tempo		  = $pch2[1]."/".$pch2[0]."/".$pch2[2];
             
-			$jual="INSERT INTO jual(inc, jual_id, no_nota, tgl_jual, username, pelanggan_nama, total, jml_bayar, tgl_jatuh_tempo)
+			/*$jual="INSERT INTO jual(inc, jual_id, no_nota, tgl_jual, username, pelanggan_nama, total, jml_bayar, tgl_jatuh_tempo)
 			VALUES('$_POST[inc]', '$_POST[jual_id]', '$_POST[no_nota]', '$_POST[tgl_jual]', '$_POST[username]',
 			'$_POST[pelanggan_nama]', '$_POST[total]', '$_POST[jml_bayar]', '$tgl_jatuh_tempo')";
-			mysql_query($jual);
+			mysql_query($jual);*/
 			//select temp_jual_detail
 			$tmp="SELECT * FROM temp_jual_detail";
 			$qtmp=mysql_query($tmp);
@@ -184,11 +191,18 @@ $url="";
 				$dtck=mysql_fetch_array($ck);
 				if($rowck>0) {
 					$stokbaru=$dtck[qty]+$dtmp[qty];
-					$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
-				VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$stokbaru', 
-				'$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
+					//$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total) VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$stokbaru', '$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
+					$jual="update jual set tgl_jual='$_POST[tgl_jual]', tgl_jatuh_tempo='$tgl_jatuh_tempo' where jual_id='$dtck[jual_id] and pelanggan_nama='$_POST[pelanggan_nama]'";
+					mysql_query($jual);
+
+					$detail="update jual_detail set qty='$stokbaru' where jual_id='$dtck[jual_id]' and barang_id='$dtck[barang_id]'";
 				mysql_query($detail);
 				} else {
+					$jual="INSERT INTO jual(inc, jual_id, no_nota, tgl_jual, username, pelanggan_nama, total, jml_bayar, tgl_jatuh_tempo)
+			VALUES('$_POST[inc]', '$_POST[jual_id]', '$_POST[no_nota]', '$_POST[tgl_jual]', '$_POST[username]',
+			'$_POST[pelanggan_nama]', '$_POST[total]', '$_POST[jml_bayar]', '$tgl_jatuh_tempo')";
+					mysql_query($jual);
+
 					$detail="INSERT INTO jual_detail(jual_id, barang_id, barang_nama, kategori, qty, packing, harga_barang, harga_total)
 				VALUES('$_POST[jual_id]', '$dtmp[barang_id]', '$dtmp[barang_nama]', '$dtmp[kategori]', '$dtmp[qty]', 
 				'$dtmp[packing]', '$dtmp[harga_barang]', '$dtmp[harga_total]')";
@@ -332,7 +346,7 @@ $url="";
 		case "barang_update":
 			{
 				$nama_tabel="barang";
-				$values="barang_id='$_POST[Barang_Kode]', barang_nama='$_POST[nmBarang]', barang_kategori='$_POST[kategori]', satuan='$_POST[satuan]', kg='$_POST[kg]', harga_satuan='$_POST[harga_satuan]'";
+				$values="barang_id='$_POST[Barang_Kode]', barang_nama='$_POST[nmBarang]', barang_kategori='$_POST[kategori]', satuan='$_POST[satuan]', kg='$_POST[kg]', harga_satuan='$_POST[hrgBarang]', ukuran='$_POST[ukuran]'";
 				$kondisi="inc='$_POST[inc]'";
 				$hal="data_barang";
 				update($nama_tabel,$values,$kondisi);
@@ -376,7 +390,7 @@ $url="";
 		}
 		case "ubah_akun":
 		{
-			$sql="UPDATE account SET password='$_POST[password]', nama='$_POST[nama]', level='$_POST[level]' WHERE username='$_POST[username]'";
+			$sql="UPDATE account SET nama='$_POST[nama]', level='$_POST[level]', id_distributor='$_POST[distributor]' WHERE username='$_POST[username]'";
 			mysql_query($sql);
 			$hal="data_akun";
 			break;

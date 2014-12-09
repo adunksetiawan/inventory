@@ -114,7 +114,7 @@ $qtmpil_barang.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
           <td><?php echo "$row1[barang_id]"; ?></td>
           <td><?php echo "$row1[barang_nama]"; ?></td>
           <td><?php echo "$row1[barang_kategori]"; ?></td>
-          <td><?php echo "$row1[satuan]x$row1[kg]Kg";?></td>
+          <td><?php echo "$row1[satuan]x$row1[kg]$row1[ukuran]";?></td>
          
           <?php if($_REQUEST['act']!="") { ?>
           <td align="center"><?php 

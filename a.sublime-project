@@ -8,6 +8,14 @@
 		{
 			"follow_symlinks": true,
 			"path": "D:\\wamp\\www\\ululazmi"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\wamp\\www\\opencart2"
+		},
+		{
+			"follow_symlinks": true,
+			"path": "D:\\wamp\\www\\sikad"
 		}
 	]
 }

@@ -109,9 +109,9 @@ require_once "library/fungsi_standar.php";
         </td>
       </tr>
       <tr>
-        <td colspan="3" style="color:#FFF; background-color:#333; border:none;" align="right">Total Qty :</td>
+        <!--<td colspan="3" style="color:#FFF; background-color:#333; border:none;" align="right">Total Qty :</td>-->
         
-        <td style="color:#FFF; background-color:#333; border:none;">
+        <!--<td style="color:#FFF; background-color:#333; border:none;">
         	<?php
 				$sumQty="SELECT SUM(qty) AS totalQty FROM jual_detail WHERE jual_id='$_GET[id]'";
 				$qsumQty=mysql_query($sumQty);
@@ -141,7 +141,7 @@ require_once "library/fungsi_standar.php";
 		$piutang=$djual['total']-$djual['jml_bayar'];
 		echo "Rp ".digit($piutang);
 		?>
-        </td>
+        </td>-->
       </tr>
       
 											</tbody>

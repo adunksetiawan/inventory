@@ -99,7 +99,7 @@ require_once "library/fungsi_standar.php";
 										<!-- BASIC -->
 										<div class="box border red">
 											<div class="box-title">
-												<h4><i class="fa fa-briefcase"></i><?=$halaman?></h4>
+												<h4><i class="fa fa-briefcase"></i><?php echo  $halaman?></h4>
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
 														<i class="fa fa-cog"></i>
@@ -129,13 +129,13 @@ require_once "library/fungsi_standar.php";
                    $qrykat=mysql_query("select id_kat, kode_kat, nm_kat from barang_kategori order by id_kat asc");
                    while($dtkat=mysql_fetch_array($qrykat)) {
                    ?>
-                   <option value="<?=$dtkat['kode_kat']?>"><?=$dtkat['nm_kat']?></option>
+                   <option value="<?php echo $dtkat['kode_kat']?>"><?php echo $dtkat['nm_kat']?></option>
                    <?php } ?>  
               </select>
             </label></td>
           </tr>
           <tr>
-            <td>Kode Barang</td><input type="hidden" name="inc" id="inc" value="<?=$inc;?>" />
+            <td>Kode Barang</td><input type="hidden" name="inc" id="inc" value="<?php echo  $inc;?>" />
             <td>:&nbsp;</td>
             <td><label><input placeholder="Kode Barang" name="Barang_Kode" type="text" id="barang_kode" class="form-control" size="50" maxlength="70" readonly /></label></td>
           </tr>
@@ -146,16 +146,27 @@ require_once "library/fungsi_standar.php";
               <input placeholder="Nama Barang" name="nmBarang" type="text" id="input" class="form-control" size="50" maxlength="70" />
             </label></td>
           </tr>
-		      
+		      <!--<tr>
+            <td>Harga Barang</td>
+            <td>:&nbsp;</td>
+            <td><label>
+              <input placeholder="Harga Barang" name="hrgBarang" type="text" id="input" class="form-control" size="50" maxlength="70" />
+            </label></td>
+          </tr>-->
            <tr>
             <td>Packing</td>
             <td>:&nbsp;</td>
             <td><label>
               <input name="satuan" type="text" id="input" class="form-control" size="5" maxlength="10" />
-            </label>&nbsp;&nbsp;x&nbsp;
+              </label>&nbsp;&nbsp;x&nbsp;
               <label>
                 <input name="kg" type="text" id="input" class="form-control" size="5" maxlength="10" />
-              </label>&nbsp;Kg</td>
+              </label>&nbsp;<label><select name="ukuran" class="form-control">
+                  <option value="kg">Kg</option>
+                  <option value="gr">Gr</option>
+                  <option value="karton">Karton</option>
+                </select></label></td>
+              
           </tr>
           
           <tr>
@@ -186,7 +197,7 @@ require_once "library/fungsi_standar.php";
 										<!-- BASIC -->
 										<div class="box border red">
 											<div class="box-title">
-												<h4><i class="fa fa-user"></i><?=$halaman?></h4>
+												<h4><i class="fa fa-user"></i><?php echo  $halaman?></h4>
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
 														<i class="fa fa-cog"></i>
@@ -268,9 +279,9 @@ require_once "library/fungsi_standar.php";
 												<form role="form" class="form-horizontal">
         <table border="0" cellspacing="2" cellpadding="0" width="100%">
           <tr>
-            <td>Supplier ID <input type="hidden" name="supplier_inc" id="supplier_inc" value="<?=$inc?>" /></td>
+            <td>Supplier ID <input type="hidden" name="supplier_inc" id="supplier_inc" value="<?php echo  $inc?>" /></td>
             <td>:</td>
-            <td><label><input name="supplier_id" type="text" readonly="readonly" id="input" class="form-control" size="70" maxlength="70" value="SPL-<?=$inc;?>" /></label></td>
+            <td><label><input name="supplier_id" type="text" readonly="readonly" id="input" class="form-control" size="70" maxlength="70" value="SPL-<?php echo  $inc;?>" /></label></td>
           </tr>
           <tr>
             <td>Nama Supplier</td>
@@ -356,7 +367,7 @@ require_once "library/fungsi_standar.php";
           <tr>
             <td>Pelanggan ID <input type="hidden" name="pelanggan_inc" id="pelanggan_inc" value="<?php echo $inc;?>" /></td>
             <td>:</td>
-            <td><label><input type="text" name="pelanggan_id" id="input" class="form-control" value="PLG-<?=$inc;?>" /></label></td>
+            <td><label><input type="text" name="pelanggan_id" id="input" class="form-control" value="PLG-<?php echo  $inc;?>" /></label></td>
           </tr>
           <tr>
             <td>Nama Pelanggan</td>

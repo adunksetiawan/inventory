@@ -5,7 +5,6 @@ require_once "library/koneksi.php";
 require_once "library/fungsi_standar.php";
 require_once "fungsi_halaman.php";
 
-
 function function_menu($menunya) {
     $id_menu=$menunya;
     return $id_menu;
@@ -20,6 +19,14 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
         echo '<script type="text/javascript">alert("Anda tidak diizinkan mengakses halaman ini.");</script>';
         lompat_ke("index.php");
     } 
+}
+
+function cek_user($user) {
+	$qry="select id_distributor from account where username='$user'";
+	$ck=mysql_query($qry);
+	$dt=mysql_fetch_array($ck);
+	$user=$dt['id_distributor'];
+	return $user;
 }
 
 ?>
@@ -55,7 +62,8 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
     <link rel="stylesheet" href="JQuery-UI-1.8.17.custom/development-bundle/themes/ui-lightness/jquery.ui.all.css">
     <script src="JQuery-UI-1.8.17.custom/development-bundle/ui/jquery.ui.datepicker.js"></script>
     <script src="JQuery-UI-1.8.17.custom/development-bundle/ui/i18n/jquery.ui.datepicker-id.js"></script>
-    
+    <!-- JQPLOT -->
+    <link rel="stylesheet" type="text/css" href="css/jquery.jqplot.css" />
 	
 	<script>
 	$(function() {
@@ -139,8 +147,8 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
                         
                         ?>
 							<li class="dropdown">
-								<a href="<?=$menus['url']?>" class="dropdown-toggle" <?php if($baris>1) { ?> data-toggle="dropdown" <?php } ?>>
-								<span class="menu-text"><?=$menus['nm_menu']?></span>
+								<a href="<?php echo  $menus['url']?>" class="dropdown-toggle" <?php if($baris>1) { ?> data-toggle="dropdown" <?php } ?>>
+								<span class="menu-text"><?php echo  $menus['nm_menu']?></span>
 								<span class="selected"></span>
                                 <?php if($baris>1) { ?>	
                                 <i class="fa fa-angle-down"></i>
@@ -196,13 +204,13 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
                         }
                         
                         ?> 
-                    <option value="<?=$menus['url']?>" <?php if($gethal==$menus['url']) { echo "selected"; }?>><?=$menusel;?></option> 
+                    <option value="<?php echo $menus['url']?>" <?php if($gethal==$menus['url']) { echo "selected"; }?>><?php echo $menusel;?></option> 
                 <?php } ?>
                 </select> 
                 
 				<!-- /NAVBAR LEFT -->
 				<!-- BEGIN TOP NAVIGATION MENU -->					
-				<ul class="nav navbar-nav pull-right">
+				<ul class="nav navbar-nav pull-right" style="min-width:150px !important;">
 					<!-- BEGIN NOTIFICATION DROPDOWN -->	
 					<!-- <li class="dropdown" id="header-notification">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -239,7 +247,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
                             $nm=mysql_fetch_array(mysql_query("select nama from account where username='".$_SESSION['username']."'"));
                             
                             ?>
-                            <span class="username"><?=ucfirst($nm['nama']);?></span>&nbsp;
+                            <span class="username"><?php echo ucfirst($nm['nama']);?></span>&nbsp;
 							<i class="fa fa-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
@@ -303,13 +311,13 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
                             while($submenu=mysql_fetch_array($sub)) {
                                 
                             
-                            //cek_hak_akses($submenu['id_menu'], $submenu['id_menu_tree'], $_SESSION['username']);    
+                            cek_hak_akses($submenu['id_menu'], $submenu['id_menu_tree'], $_SESSION['username']);    
                             
                             
                             ?>
                             <li>
-								<a href="<?=$submenu['url'];?>">
-								<i class="<?=$submenu['custom_class']?>"></i> <span class="menu-text"><?=$submenu['nm_menu']?></span>
+								<a href="<?php echo $submenu['url'];?>">
+								<i class="<?php echo $submenu['custom_class']?>"></i> <span class="menu-text"><?php echo $submenu['nm_menu']?></span>
 								<span class="selected"></span>
 								</a>					
 							</li>
@@ -356,12 +364,12 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 											<i class="fa fa-home"></i>
 											<a href="index.php">Home</a>
 										</li>
-										<li><?=$halaman?></li>
+										<li><?php echo $halaman?></li>
 									</ul>
 									<!-- /BREADCRUMBS -->
                                     
 									<div class="clearfix">
-										<h3 class="content-title pull-left"><?=$halaman;?></h3>
+										<h3 class="content-title pull-left"><?php echo $halaman;?></h3>
 										<!-- DATE RANGE PICKER -->
 										<!-- <span class="date-range pull-right">
 											<div class="btn-group">
@@ -430,6 +438,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 	<!-- Placed at the end of the document so the pages load faster -->
 	<!-- JQUERY -->
 	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<script src="js/jquery.js"></script>
 	<!-- JQUERY UI-->
 	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
 	<!-- BOOTSTRAP -->
@@ -459,6 +468,17 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
     <script src="js/flot/jquery.flot.pie.min.js"></script>
     <script src="js/flot/jquery.flot.stack.min.js"></script>
     <script src="js/flot/jquery.flot.crosshair.min.js"></script>
+    <!-- FLOT GROWRAF -->
+	<script src="js/flot-growraf/jquery.flot.growraf.min.js"></script>
+	<!-- GAGE -->
+	<script src="js/justgage/js/raphael.2.1.0.min.js"></script>
+    <script src="js/justgage/js/justgage.1.0.1.min.js"></script>
+	<!-- EASY PIE CHART -->
+	<script src="js/jquery-easing/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="js/easypiechart/jquery.easypiechart.min.js"></script>
+	<!-- JQPLOT -->
+	<script language="javascript" type="text/javascript" src="js/jquery.jqplot.js"></script>
+	<script language="javascript" type="text/javascript" src="js/plugins/jqplot.pieRenderer.js"></script>
 	<!-- TODO -->
 	<script type="text/javascript" src="js/jquery-todo/js/paddystodolist.js"></script>
 	<!-- TIMEAGO -->
@@ -472,6 +492,7 @@ function cek_hak_akses($id_menu, $id_menu_tree, $sesi) {
 	<script type="text/javascript" src="js/gritter/js/jquery.gritter.min.js"></script>
 	<!-- CUSTOM SCRIPT -->
 	<script src="js/script.js"></script>
+	<script src="js/charts.js"></script>
 	<script>
 		jQuery(document).ready(function() {		
 			App.setPage("index");  //Set current page

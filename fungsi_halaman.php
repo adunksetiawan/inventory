@@ -19,6 +19,10 @@
                                         break;
                                         case "kategori_barang_update" : $halaman="Ubah Kategori Produk";
                                         break;
+                                        case "barang_update" : $halaman="Ubah Produk";
+                                        break;
+                                        case "pelanggan_update" : $halaman="Ubah Data Distributor";
+                                        break;
                                         case "" : $halaman="Beranda";
                                         break;
                                     }
@@ -60,6 +64,10 @@
                                         case "form_pelanggan_jual" : $halaman=ucfirst($_GET['act'])." Input Stokist Pelanggan";
                                         break;
                                         case "data_kategori_barang" : $halaman=ucfirst($_GET['act'])." Data Kategori Produk";
+                                        break;
+                                        case "jual_cari" : $halaman=ucfirst($_GET['act'])." Pencarian";
+                                        break;
+                                        case "distributor_jual_cari" : $halaman=ucfirst($_GET['act'])." Pencarian Pembelian";
                                         break;
                                         case "" : $halaman="Beranda";
                                         break;

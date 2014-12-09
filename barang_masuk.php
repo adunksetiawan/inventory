@@ -242,7 +242,7 @@ function myFunction(url) {
                 }
                 
                 echo "</td>
-                <td>$data[satuan]x$data[kg]kg</td>
+                <td>$data[satuan]x$data[kg]$data[ukuran]</td>
                 "; ?>
                 <?php if($_REQUEST['act']!="") { ?>
                 <?php if($_REQUEST['act']=="ubah") {?>

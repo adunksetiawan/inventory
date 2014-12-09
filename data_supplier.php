@@ -46,7 +46,7 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 								<!-- BOX -->
 								<div class="box border red">
 									<div class="box-title">
-										<h4><i class="fa fa-user"></i><?=$halaman?></h4>
+										<h4><i class="fa fa-user"></i><?php echo     $halaman?></h4>
 										<div class="tools">
 											<a href="#box-config" data-toggle="modal" class="config">
 												<i class="fa fa-cog"></i>
@@ -92,7 +92,7 @@ $qtmpil_sup.=$page?" LIMIT ".$maxrow." offset ".(($page-1)*$maxrow)."":"";
 			}
 		?>
 											  <tr>
-                                              <td><?=$no++;?></td>
+                                              <td><?php echo     $no++;?></td>
                                               <td><?php echo "$row2[supplier_id]"; ?></td>
 												<td><?php echo "$row2[supplier_nama]"; ?></td>
           <td><?php echo "$row2[supplier_alamat]"; ?></td>
