@@ -68,6 +68,11 @@ $pelnama=$ck['pelanggan_nama'];
 									$dtjual=mysql_query($qrys);
 									$hsl=mysql_fetch_array($dtjual);
 								?>
+								<?php 
+								if($hsl['jumlah']<1) {
+									echo "";
+								} else {
+								?>	
 								  <div class="col-lg-6">
 									 <div class="dashbox panel panel-default">
 										<div class="panel-body">
@@ -89,10 +94,10 @@ $pelnama=$ck['pelanggan_nama'];
 										</div>
 									 </div>
 								  </div>
-								<?php } ?>
+								<?php } } ?>
 								</div>
 									
-								<div class="row">
+								<!--<div class="row">
 									<div class="col-md-12">
 										<div class="quick-pie panel panel-default">
 											<div class="panel-body">
@@ -117,7 +122,7 @@ $pelnama=$ck['pelanggan_nama'];
 											</div>
 										</div>
 									</div>
-							   </div>
+							   </div>-->
 							</div>
 							<!-- /COLUMN 1 -->
 							
@@ -179,20 +184,20 @@ $pelnama=$ck['pelanggan_nama'];
 											<tbody>
 											<?php 
 											//echo $pelnama; 
-											$dt=mysql_query("select * from barang_kategori");
-											$jml=mysql_num_rows($dt);
+											//$dt=mysql_query("select * from barang_kategori");
+											//$jml=mysql_num_rows($dt);
 
 											$no=1;
-											while($brg=mysql_fetch_array($dt)) {
+											//while($brg=mysql_fetch_array($dt)) {
 
-											$dtss="select barang_nama, packing, sum(qty) as totalqty from jual as a, jual_detail as b where a.jual_id=b.jual_id and kategori='$brg[nm_kat]' ";
+											$dtss="select barang_nama, packing, sum(qty) as totalqty from jual as a, jual_detail as b, barang_kategori as c where a.jual_id=b.jual_id and b.kategori=c.nm_kat";
 											if($pelnama!="") {
 												$dtss.=" and pelanggan_nama='$pelnama'";
 											}
 											$dtss.=" group by barang_nama";
 											
 											$rsdt=mysql_query($dtss);
-											$dtn=mysql_fetch_array($rsdt);
+											while($dtn=mysql_fetch_array($rsdt)) {
 											?>
 											  <tr>
 												<td><?php echo $no++; ?></td>

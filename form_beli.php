@@ -55,7 +55,7 @@ if (isset($_POST['proses'])and($_POST['proses']=="form2"))
 										<!-- BASIC -->
 										<div class="box border red">
 											<div class="box-title">
-												<h4><i class="fa fa-arrow-left"></i><?=$halaman?></h4>
+												<h4><i class="fa fa-arrow-left"></i><?php echo $halaman?></h4>
 												<div class="tools hidden-xs">
 													<a href="#box-config" data-toggle="modal" class="config">
 														<i class="fa fa-cog"></i>

@@ -126,7 +126,7 @@ function myFunction(url) {
         <!-- BOX -->
         <div class="box border red">
             <div class="box-title">
-                <h4><?=$halaman?></h4>
+                <h4><?php echo $halaman?></h4>
 
                 <div class="tools">
                     <a href="#box-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="collapse"></a> <a href="javascript:;" class="remove"></a>
@@ -185,7 +185,7 @@ function myFunction(url) {
         <!-- BOX -->
         <div class="box border red">
             <div class="box-title">
-                <h4><i class="fa fa-archive"></i><?=$halaman?></h4>
+                <h4><i class="fa fa-archive"></i><?php echo $halaman?></h4>
                 <div class="tools">
                     <a href="#box-config" data-toggle="modal" class="config">
                         <i class="fa fa-cog"></i>
